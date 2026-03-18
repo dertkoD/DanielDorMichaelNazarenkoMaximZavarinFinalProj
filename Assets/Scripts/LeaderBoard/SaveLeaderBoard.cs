@@ -6,10 +6,11 @@ public class SaveLeaderBoard : MonoBehaviour
 {
     private const string DATA_SAVE_PATH = "/leaderboard.dat";
     
+    //save players count and player's data
     public void SaveLeaderBoardData(Dictionary<string, float> scoreBoard)
     {
         string path = Application.persistentDataPath + DATA_SAVE_PATH;
-
+        
         using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
         {
             writer.Write(scoreBoard.Count);
@@ -22,11 +23,11 @@ public class SaveLeaderBoard : MonoBehaviour
         }
     }
 
-
+    //load players count and player's data
     public Dictionary<string, float> LoadLeaderBoardData()
     {
         string path = Application.persistentDataPath + DATA_SAVE_PATH;
-
+        
         Dictionary<string, float> scoreTableToLoad = new Dictionary<string, float>();
 
         if (!File.Exists(path))

@@ -16,7 +16,7 @@ public class LeaderBoardManager : MonoBehaviour
 
     private string lastName = "";
     
-    
+    //Save data for the last playED player
     void Start()
     {
         scoreTable = saveSystem.LoadLeaderBoardData();
@@ -32,13 +32,13 @@ public class LeaderBoardManager : MonoBehaviour
         uiLeader.ShowLeaderboard(scoreTable);
     }
     
+    //create "empty" player "account"
     public void SaveNewNameInDictionary()
     {
         string playerName = _playerNameInput.GetPlayerName().ToLower();
 
         GameSession.CurrentPlayerName = playerName;
         GameSession.CurrentPlayerScore = 0;
-        //lastName = playerName;
         _playerNameInput.CleanInput();
         
         uiLeader.UpdateCurrentPlayerStats(playerName,  GameSession.CurrentPlayerScore);
@@ -53,6 +53,7 @@ public class LeaderBoardManager : MonoBehaviour
         }
     }
     
+    // Save new score if it's bigger than previous
     private void SavePlayerScoreInDictionary(string playerName, float score)
     {
         if (score > scoreTable[playerName])
@@ -66,29 +67,7 @@ public class LeaderBoardManager : MonoBehaviour
         uiLeader.ShowLeaderboard(scoreTable);
     }
 
-    // private void Update()
-    // {
-    //     if (Keyboard.current.spaceKey.wasPressedThisFrame)
-    //     {
-    //         uiLeader.ShowLeaderboard(scoreTable);
-    //     }
-    // }
     
-    
-    // For tests
-    // public void AddTestScore(float testvalue)
-    // {
-    //     currentPLayerScore += testvalue;
-    //     SavePlayerScoreInDictionary(lastName, currentPLayerScore);
-    //     uiLeader.UpdateCurrentPlayerStats(lastName, currentPLayerScore);
-    // }
-
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene("M_Test");
-    }
-
-
     public void CleanTheLeaderBoard()
     {
         scoreTable.Clear();

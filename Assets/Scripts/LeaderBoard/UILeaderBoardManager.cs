@@ -20,7 +20,7 @@ public class UILeaderBoardManager : MonoBehaviour
     {
         if (currentRows >= numberOfRows)
             return;
-        
+        //Create list sorted by value
         var sorted= scoreTable.OrderByDescending(x=> x.Value).ToList();
         var last = sorted.Last();
         LeaderBoardUIRow row = Instantiate(rowPrefab, content);
@@ -29,6 +29,7 @@ public class UILeaderBoardManager : MonoBehaviour
         currentRows++;
     }
 
+    //recreation of leaderboard
     public void ShowLeaderboard(Dictionary<string, float> scoreTable)
     {
         foreach (Transform child in content)

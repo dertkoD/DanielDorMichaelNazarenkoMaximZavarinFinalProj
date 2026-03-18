@@ -56,6 +56,11 @@ public class AudioManager : MonoBehaviour
     private const string SAVE_GENERAL_VOLUME_KEY = "GeneralVolume";
     private const string SAVE_BACKMUSIC_VOLUME_KEY = "BackMVolume";
     private const string SAVE_SOUND_VOLUME_KEY = "SoundsVolume";
+
+    private float DefaultAudioValue = 0f;
+    private float DefaultMusicValue = -20f;
+    private float DefaultSoundValue = -20f;
+    
     private void Start()
     {
         LoadVolumeValues();
@@ -72,13 +77,13 @@ public class AudioManager : MonoBehaviour
 
     private void LoadVolumeValues()
     {
-        currentVolumeValue = PlayerPrefs.GetFloat(SAVE_GENERAL_VOLUME_KEY, 0f);
+        currentVolumeValue = PlayerPrefs.GetFloat(SAVE_GENERAL_VOLUME_KEY, DefaultAudioValue);
         _uiAudio.ChangeGeneralUISlider(currentVolumeValue);
         
-        currentMusicVolumeValue = PlayerPrefs.GetFloat(SAVE_BACKMUSIC_VOLUME_KEY, -20f);
+        currentMusicVolumeValue = PlayerPrefs.GetFloat(SAVE_BACKMUSIC_VOLUME_KEY, DefaultMusicValue);
         _uiAudio.ChangeMusicUISlider(currentMusicVolumeValue);
         
-        currentSoundVolumeValue = PlayerPrefs.GetFloat(SAVE_SOUND_VOLUME_KEY, -20f);
+        currentSoundVolumeValue = PlayerPrefs.GetFloat(SAVE_SOUND_VOLUME_KEY, DefaultSoundValue);
         _uiAudio.ChangeSoundUISlider(currentSoundVolumeValue);
         
         masterMixerGroup.SetFloat(MASTER_VOLUME_PARAMETER, currentVolumeValue);
