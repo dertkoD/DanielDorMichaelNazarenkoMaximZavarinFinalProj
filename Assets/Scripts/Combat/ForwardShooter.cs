@@ -97,5 +97,6 @@ public class ForwardShooter : MonoBehaviour
 
         shootParticals.Play();
         bullet.Launch(dir, bulletSpeed, bulletLifeTime);
+        AudioManager.Instance.PlayShootSounds();
     }
 }
