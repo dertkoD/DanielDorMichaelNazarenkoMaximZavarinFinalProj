@@ -6,6 +6,7 @@ public class ForwardShooter : MonoBehaviour
     [Header("References")]
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private ParticleSystem shootParticals;
 
     [Header("Start")]
     [SerializeField] private bool shootOnStart = true;
@@ -94,6 +95,7 @@ public class ForwardShooter : MonoBehaviour
             Quaternion.LookRotation(dir)
         );
 
+        shootParticals.Play();
         bullet.Launch(dir, bulletSpeed, bulletLifeTime);
     }
 }
