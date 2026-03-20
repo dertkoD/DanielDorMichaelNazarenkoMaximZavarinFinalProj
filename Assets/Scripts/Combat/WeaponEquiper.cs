@@ -53,9 +53,9 @@ public class WeaponEquipper : MonoBehaviour
         if (data.eventType == WeaponPickupEventType.Picked)
         {
             if (HasWeapon) return;
-            if (data.pickerAgentId != agentRoot.AgentId) return;
+            //if (data.pickerAgentId != agentRoot.AgentId) return;
 
-            _currentWeaponInstance = Instantiate(data.weaponPrefab, handSocket);
+            //_currentWeaponInstance = Instantiate(data.weaponPrefab, handSocket);
             _currentWeaponInstance.transform.localPosition = Vector3.zero;
             _currentWeaponInstance.transform.localRotation = Quaternion.identity;
 
