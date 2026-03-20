@@ -2,60 +2,80 @@ using UnityEngine;
 
 public class CameraRail : MonoBehaviour
 {
-    [Header("Rail points")] public Transform startPoint;
+    [Header("Rail points")]
+    public Transform startPoint;
     public Transform endPoint;
 
-    [Header("Movement")] public float moveSpeed = 3f;
+    [Header("Target")]
+    public Transform target;
 
+    [Header("Movement")]
     public float smoothTime = 0.12f;
-
     public bool clampToRail = true;
+    public bool followOnlyForward = true;
 
-    [Range(0f, 1f)] public float t = 0f;
+    [Range(0f, 1f)]
+    public float t = 0f;
 
-    float _tVel;
-    private bool isGameActive = true; // Game activity flag
+    private float _tVelocity;
+    private bool isGameActive = true;
 
-    void Update()
+    private float _cameraToTargetOffsetT;
+    private Vector3 _railOffset;
+
+    private void Start()
     {
-        if (!startPoint || !endPoint) return;
-        
-        // Check if game is active
+        if (!startPoint || !endPoint || !target) return;
+
+        float cameraT = GetProjectedT(transform.position);
+        float targetT = GetProjectedT(target.position);
+
+        _cameraToTargetOffsetT = cameraT - targetT;
+        t = cameraT;
+
+        Vector3 cameraRailPoint = Vector3.Lerp(startPoint.position, endPoint.position, cameraT);
+        _railOffset = transform.position - cameraRailPoint;
+    }
+
+    private void LateUpdate()
+    {
+        if (!startPoint || !endPoint || !target) return;
         if (!isGameActive) return;
 
-        float input = 0f;
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) input += 1f;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) input -= 1f;
+        float targetT = GetProjectedT(target.position);
+        float desiredT = targetT + _cameraToTargetOffsetT;
 
-        float railLength = Vector3.Distance(startPoint.position, endPoint.position);
-        float dt = Time.deltaTime;
+        if (clampToRail)
+            desiredT = Mathf.Clamp01(desiredT);
 
-        float targetT = t;
-        if (railLength > 0.0001f)
-        {
-            float tSpeed = moveSpeed / railLength;
-            targetT = t + input * tSpeed * dt;
-        }
+        if (followOnlyForward)
+            desiredT = Mathf.Max(t, desiredT);
 
-        if (clampToRail) targetT = Mathf.Clamp01(targetT);
+        t = Mathf.SmoothDamp(t, desiredT, ref _tVelocity, smoothTime);
 
-        t = Mathf.SmoothDamp(t, targetT, ref _tVel, smoothTime);
-
-        transform.position = Vector3.Lerp(startPoint.position, endPoint.position, t);
+        Vector3 railPos = Vector3.Lerp(startPoint.position, endPoint.position, t);
+        transform.position = railPos + _railOffset;
     }
-    
-    // Method to control game activity
+
+    private float GetProjectedT(Vector3 worldPos)
+    {
+        Vector3 rail = endPoint.position - startPoint.position;
+        float railLengthSqr = rail.sqrMagnitude;
+
+        if (railLengthSqr < 0.0001f)
+            return 0f;
+
+        Vector3 fromStart = worldPos - startPoint.position;
+        float projectedT = Vector3.Dot(fromStart, rail) / railLengthSqr;
+
+        if (clampToRail)
+            projectedT = Mathf.Clamp01(projectedT);
+
+        return projectedT;
+    }
+
     public void SetGameActive(bool active)
     {
         isGameActive = active;
-    }
-
-    void OnDrawGizmos()
-    {
-        if (!startPoint || !endPoint) return;
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(startPoint.position, endPoint.position);
-        Gizmos.DrawSphere(startPoint.position, 0.08f);
-        Gizmos.DrawSphere(endPoint.position, 0.08f);
     }
 }

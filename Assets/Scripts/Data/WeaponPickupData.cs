@@ -6,11 +6,10 @@ public struct WeaponPickupData
 {
     public WeaponPickupEventType eventType;
 
-    public int pickerAgentId;
-
     public Collider pickerCollider;
     public WeaponPickupTrigger pickupTrigger;
 
+    public int pickerObjectId;
     public int weaponId;
-    public WeaponView weaponPrefab;
+    public Weapon weaponPrefab;
 }
