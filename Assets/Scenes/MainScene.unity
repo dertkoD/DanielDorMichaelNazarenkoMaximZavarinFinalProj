@@ -16323,6 +16323,7 @@ GameObject:
   - component: {fileID: 4706927845680758630}
   - component: {fileID: 7953865916773195853}
   - component: {fileID: 7953865916773195854}
+  - component: {fileID: 7953865916773195856}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -16599,8 +16600,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4009378375269809717}
   - {fileID: 5941539382020880064}
+  - {fileID: 4009378375269809717}
   - {fileID: 8594315096237872165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21982,7 +21983,7 @@ Transform:
   m_GameObject: {fileID: 4614499758202209614}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37045,7 +37046,7 @@ Animator:
   m_GameObject: {fileID: 3485406143318535691}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6dae1d91906e6d945b0c387ecd6f4607, type: 3}
-  m_Controller: {fileID: 22100000, guid: a5d47ba2bd20d624aaca1d24a95f4775, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6919d28318b1a8946b8b203ea8d782ac, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -41987,6 +41988,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.32160687, y: 1.4671754, z: 0.3677883}
   m_Center: {x: 0.003987193, y: 0.73344105, z: -0.021866798}
+--- !u!114 &7953865916773195856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485406143318535691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f359a1dfc32bb304a9cfe8e6e9620c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 7923338159792500427}
+  visualRoot: {fileID: 8594315096237872165}
+  playerMovement: {fileID: 7953865916773195849}
+  groundChecker: {fileID: 7953865916773195850}
+  playerWeaponController: {fileID: 7953865916773195853}
+  xVelocityParam: xVelocity
+  yVelocityParam: yVelocity
+  jumpParam: Jump
+  hasWeaponParam: HasWeapon
+  deathParam: Death
+  aimParam: Aim
+  maxAnimSpeed: 6
+  dampTime: 0.08
 --- !u!4 &8059883632666070111
 Transform:
   m_ObjectHideFlags: 0
