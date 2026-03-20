@@ -48,6 +48,7 @@ public class PooledBullet : MonoBehaviour
     public void ReturnToPool()
     {
         if (!isActive) return;
+        if (pool == null) return;
 
         isActive = false;
         pool.ReturnBullet(this);

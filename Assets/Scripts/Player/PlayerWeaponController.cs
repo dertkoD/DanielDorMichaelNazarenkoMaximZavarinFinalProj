@@ -8,6 +8,7 @@ public class PlayerWeaponController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Collider playerBodyCollider;
     [SerializeField] private Transform weaponSocket;
+    [SerializeField] private PlayerAimController playerAimController;
 
     [Header("Channels")]
     [SerializeField] private WeaponPickedEventChannelSO weaponPickedChannel;
@@ -28,6 +29,15 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (weaponPickedChannel != null)
             weaponPickedChannel.Unregister(OnWeaponPickupEvent);
+    }
+
+    private void Update()
+    {
+        if (currentWeapon == null) return;
+        if (playerAimController == null) return;
+        if (!playerAimController.HasAimPoint) return;
+
+        currentWeapon.SetAimPoint(playerAimController.CurrentAimPoint);
     }
 
     private void OnWeaponPickupEvent(WeaponPickupData data)
