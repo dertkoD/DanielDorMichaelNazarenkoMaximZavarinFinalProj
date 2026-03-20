@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform muzzle;
     [SerializeField] private BulletPool bulletPool;
+    [SerializeField] private ParticleSystem partical;
 
     [Header("Fire Mode")]
     [SerializeField] private bool automatic = true;
@@ -76,5 +77,7 @@ public class Weapon : MonoBehaviour
         );
 
         bullet.Launch(direction, bulletSpeed, bulletLifetime);
+        partical.Play();
+        AudioManager.Instance.PlayShootSounds();
     }
 }

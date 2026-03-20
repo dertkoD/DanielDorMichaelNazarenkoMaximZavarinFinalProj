@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4679383905286209543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412603810954082224}
+  - component: {fileID: 2612508897508774007}
+  - component: {fileID: 7141450687153091124}
+  - component: {fileID: 3723482782697981110}
+  - component: {fileID: 5973806781951187684}
+  m_Layer: 0
+  m_Name: LeaderBoardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &412603810954082224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679383905286209543}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1768.6005, y: 0.00001, z: 59537.402}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2612508897508774007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679383905286209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6348f0f6dca63fa48ad5e388805d0b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNameInput
+  nameInput: {fileID: 0}
+--- !u!114 &7141450687153091124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679383905286209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1253a2681ef4e8449989e34082b00747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeaderBoerdManager
+  _playerNameInput: {fileID: 2612508897508774007}
+  uiLeader: {fileID: 3723482782697981110}
+  saveSystem: {fileID: 5973806781951187684}
+--- !u!114 &3723482782697981110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679383905286209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55705e84dc5029b4e9a1e193555bd129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILeaderBoaurdManager
+  content: {fileID: 0}
+  rowPrefab: {fileID: 1284395335689504482, guid: 9df27dea2a27794439bf315c32b23b80, type: 3}
+  currentPlayerStats: {fileID: 0}
+--- !u!114 &5973806781951187684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4679383905286209543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f264d76dd70b744a905b1d91aba343, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveLeaderBoard
