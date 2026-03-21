@@ -12,12 +12,12 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("Animator Params")]
     [SerializeField] private string xVelocityParam = "xVelocity";
     [SerializeField] private string yVelocityParam = "yVelocity";
-    [SerializeField] private string isGroundedParam = "IsGrounded";
-    [SerializeField] private string verticalVelocityParam = "VerticalVelocity";
+    [SerializeField] private string jumpParam = "Jump";
     [SerializeField] private string hasWeaponParam = "HasWeapon";
+    [SerializeField] private string deathParam = "Death";
     [SerializeField] private string aimParam = "Aim";
 
-    [Header("Tuning")]
+    [Header("Speed Mapping")]
     [SerializeField] private float maxAnimSpeed = 6f;
     [SerializeField] private float dampTime = 0.08f;
 
@@ -34,11 +34,6 @@ public class PlayerAnimationController : MonoBehaviour
 
         animator.SetFloat(xVelocityParam, x, dampTime, Time.deltaTime);
         animator.SetFloat(yVelocityParam, y, dampTime, Time.deltaTime);
-
-        bool isGrounded = groundChecker != null && groundChecker.IsGrounded;
-        animator.SetBool(isGroundedParam, isGrounded);
-
-        animator.SetFloat(verticalVelocityParam, playerMovement.CurrentVelocity.y);
 
         animator.SetBool(hasWeaponParam, playerWeaponController != null && playerWeaponController.HasWeapon);
         animator.SetBool(aimParam, true);

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3218953363166991456}
   - component: {fileID: 4595543441811104850}
   - component: {fileID: 3733011888224861573}
-  - component: {fileID: 3120181276579393918}
+  - component: {fileID: 4110924979298678651}
   m_Layer: 0
-  m_Name: ProjectileSwatObstacle
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3120181276579393918
+--- !u!114 &4110924979298678651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +150,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4844329095727320760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4bfad77240335841af793c6bd824330, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d236a4c32098744a3677846a7af71b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PooledBullet
-  lifeTime: 5
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  speed: 18
+  lifetime: 3

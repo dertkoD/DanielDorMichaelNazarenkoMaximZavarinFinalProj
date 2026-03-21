@@ -2,38 +2,35 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Assign in Inspector")]
     [SerializeField] private Collider playerCollider;
 
-    [Header("Ground Check")]
+    [Header("Ground")]
     [SerializeField] private LayerMask groundMask = ~0;
-    [SerializeField] private float castPadding = 0.08f;
+    [SerializeField] private float extraDistance = 0.08f;
     [SerializeField] private float skin = 0.01f;
-    [SerializeField] private float maxGroundAngle = 60f;
+    [SerializeField] private float maxSlopeAngle = 60f;
     [SerializeField] private bool drawDebug = false;
 
     public bool IsGrounded { get; private set; }
-    public RaycastHit GroundHit { get; private set; }
-    public Collider GroundCollider => GroundHit.collider;
-    public Vector3 GroundNormal => IsGrounded ? GroundHit.normal : Vector3.up;
-    public float GroundAngle => Vector3.Angle(GroundNormal, Vector3.up);
+    public RaycastHit GroundHit => _hit;
+
+    private RaycastHit _hit;
 
     private void FixedUpdate()
     {
-        IsGrounded = ProbeGround();
+        IsGrounded = CheckGroundedCast();
 
-        if (drawDebug && playerCollider != null)
+        if (drawDebug)
         {
             Vector3 origin = GetCastOrigin();
-            float distance = GetCastDistance();
-            Debug.DrawLine(origin, origin + Vector3.down * distance, IsGrounded ? Color.green : Color.red, Time.fixedDeltaTime);
+            Vector3 end = origin + Vector3.down * GetCastDistance();
+            Debug.DrawLine(origin, end, IsGrounded ? Color.green : Color.red, Time.fixedDeltaTime);
         }
     }
 
-    private bool ProbeGround()
+    private bool CheckGroundedCast()
     {
-        GroundHit = default;
-
         if (playerCollider == null)
             return false;
 
@@ -41,27 +38,23 @@ public class GroundChecker : MonoBehaviour
         float radius = GetCastRadius();
         float distance = GetCastDistance();
 
-        bool hit = Physics.SphereCast(
+        bool hasHit = Physics.SphereCast(
             origin,
             radius,
             Vector3.down,
-            out RaycastHit groundHit,
+            out _hit,
             distance,
             groundMask,
             QueryTriggerInteraction.Ignore
         );
 
-        if (!hit)
+        if (!hasHit)
             return false;
 
-        float minDot = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
-        float dot = Vector3.Dot(groundHit.normal, Vector3.up);
+        float minDot = Mathf.Cos(maxSlopeAngle * Mathf.Deg2Rad);
+        float dot = Vector3.Dot(_hit.normal, Vector3.up);
 
-        if (dot < minDot)
-            return false;
-
-        GroundHit = groundHit;
-        return true;
+        return dot >= minDot;
     }
 
     private Vector3 GetCastOrigin()
@@ -76,15 +69,18 @@ public class GroundChecker : MonoBehaviour
         );
     }
 
+    private float GetCastDistance()
+    {
+        return extraDistance + skin;
+    }
+
     private float GetCastRadius()
     {
         Bounds bounds = playerCollider.bounds;
-        float radius = Mathf.Min(bounds.extents.x, bounds.extents.z);
-        return Mathf.Max(0.01f, radius - skin);
-    }
 
-    private float GetCastDistance()
-    {
-        return castPadding + skin;
+        float radius = Mathf.Min(bounds.extents.x, bounds.extents.z);
+        radius = Mathf.Max(0.01f, radius - skin);
+
+        return radius;
     }
 }

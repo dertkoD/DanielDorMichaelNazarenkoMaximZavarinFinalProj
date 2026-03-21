@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8738468978076552911}
   - component: {fileID: 3796763614657284276}
   - component: {fileID: 6947177734084644835}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Maruta_Incline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,9 +1210,25 @@ MonoBehaviour:
   m_Mesh: {fileID: 0}
   m_VersionIndex: 23456
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 1600000025000000
+  m_SelectedEdges:
+  - a: 88
+    b: 89
+  - a: 90
+    b: 88
+  - a: 89
+    b: 91
+  - a: 91
+    b: 90
+  - a: 148
+    b: 149
+  - a: 150
+    b: 148
+  - a: 149
+    b: 151
+  - a: 151
+    b: 150
+  m_SelectedVertices: 58000000590000005a0000005b00000094000000950000009600000097000000
 --- !u!114 &7339967128617777145
 MonoBehaviour:
   m_ObjectHideFlags: 0

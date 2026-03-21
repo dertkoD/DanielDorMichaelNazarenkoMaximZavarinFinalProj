@@ -2,34 +2,24 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Header("Identity")]
-    [SerializeField] private int objectId;
+    [SerializeField] private AgentRoot agentRoot;
 
     [Header("Stats")]
     [SerializeField] private int maxHp = 100;
-    [SerializeField] private int currentHp = 100;
-
-    [Header("Animation")]
-    [SerializeField] private Animator animator;
+    [SerializeField] private int currentHp;
     [SerializeField] private string deathTrigger = "Death";
     [SerializeField] private string hasWeaponParam = "HasWeapon";
+    
+    [SerializeField] private int otherAgentId = 2;
+   
 
-    [Header("Disable On Death")]
-    [SerializeField] private Behaviour[] behavioursToDisable;
-    [SerializeField] private Collider[] collidersToDisable;
-    [SerializeField] private Rigidbody rigidbodyToStop;
-
-    [Header("Events In")]
+    [Header("Events In (UnityEvent Channel)")]
     [SerializeField] private DamageEventChannelSO damageEventChannel;
 
-    [Header("Events Out")]
+    [Header("Events Out (Action Channel)")]
     [SerializeField] private HealthChangedActionChannelSO healthChangedAction;
     [SerializeField] private GameOverActionChannelSO gameOverAction;
 
-    [Header("Optional")]
-    [SerializeField] private int winnerObjectIdOnDeath = -1;
-
-    public int ObjectId => objectId;
     public int MaxHp => maxHp;
     public int CurrentHp => currentHp;
     public bool IsDead => currentHp <= 0;
@@ -39,96 +29,90 @@ public class Health : MonoBehaviour
 
     private void Awake()
     {
-        if (maxHp < 1)
-            maxHp = 1;
-
-        if (currentHp <= 0 || currentHp > maxHp)
+        if (currentHp <= 0)
             currentHp = maxHp;
+        gameOverRaised = false;
     }
 
     private void OnEnable()
     {
-        damageEventChannel?.Register(OnDamageReceived);
+        if (damageEventChannel) damageEventChannel.Register(OnDamageReceived);
 
         deathTriggered = false;
-        gameOverRaised = false;
 
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+        if (agentRoot)
+            healthChangedAction?.Raise(agentRoot.AgentId, currentHp, maxHp);
     }
 
     private void OnDisable()
     {
-        damageEventChannel?.Unregister(OnDamageReceived);
+        if (damageEventChannel) damageEventChannel.Unregister(OnDamageReceived);
     }
 
     private void OnDamageReceived(DamageInfo info)
     {
+        if (!agentRoot) return;
         if (IsDead) return;
-        if (info.targetObjectId != objectId) return;
-        if (info.damage <= 0) return;
 
-        currentHp = Mathf.Max(0, currentHp - info.damage);
+        // agency check
+        if (info.targetAgentId != agentRoot.AgentId) return;
 
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+        int before = currentHp;
+        int after = Mathf.Max(0, before - info.damage);
+        currentHp = after;
+        
+        healthChangedAction?.Raise(agentRoot.AgentId, currentHp, maxHp);
 
-        if (!IsDead) return;
-
-        TriggerDeathAnimation();
-        DisableDeadComponents();
-
-        if (!gameOverRaised && gameOverAction != null && winnerObjectIdOnDeath >= 0)
+        if (IsDead)
         {
-            gameOverRaised = true;
-            gameOverAction.Raise(winnerObjectIdOnDeath);
+            TriggerDeathAnimation();
+            DisableDeadComponents();
+            
+            if (!gameOverRaised && gameOverAction)
+            {
+                gameOverRaised = true;
+                gameOverAction.Raise(otherAgentId);
+            }
         }
     }
 
     private void TriggerDeathAnimation()
     {
         if (deathTriggered) return;
+        if (string.IsNullOrEmpty(deathTrigger)) return;
+
+        var animator = agentRoot.Animator;
+        if (!animator) return;
+
         deathTriggered = true;
-
-        if (animator == null) return;
-
         if (!string.IsNullOrEmpty(hasWeaponParam))
             animator.SetBool(hasWeaponParam, false);
-
-        if (!string.IsNullOrEmpty(deathTrigger))
-            animator.SetTrigger(deathTrigger);
+        animator.SetTrigger(deathTrigger);
     }
 
     private void DisableDeadComponents()
     {
-        if (behavioursToDisable != null)
+        if (agentRoot == null) return;
+
+        var navAgent = agentRoot.NavAgent;
+        if (navAgent)
         {
-            foreach (var behaviour in behavioursToDisable)
-            {
-                if (behaviour == null) continue;
-                behaviour.enabled = false;
-            }
+            navAgent.isStopped = true;
+            navAgent.ResetPath();
+            navAgent.speed = 0f;
+            navAgent.acceleration = 0f;
+            navAgent.angularSpeed = 0f;
         }
 
-        if (collidersToDisable != null)
+        var shooter = agentRoot.Shooter;
+        if (shooter)
         {
-            foreach (var col in collidersToDisable)
-            {
-                if (col == null) continue;
-                col.enabled = false;
-            }
+            shooter.StopShooting();
+            shooter.enabled = false;
         }
 
-        if (rigidbodyToStop != null)
-        {
-            rigidbodyToStop.linearVelocity = Vector3.zero;
-            rigidbodyToStop.angularVelocity = Vector3.zero;
-        }
-    }
-
-    public void HealToFull()
-    {
-        currentHp = maxHp;
-        deathTriggered = false;
-        gameOverRaised = false;
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+        var range = agentRoot.WeaponRange;
+        if (range)
+            range.enabled = false;
     }
 }

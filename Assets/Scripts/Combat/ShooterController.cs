@@ -7,7 +7,7 @@ public class ShooterController : MonoBehaviour
     [SerializeField] private AgentRoot agentRoot;
 
     [Header("Weapon")]
-    //[SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private int weaponDamage = 10;
     [SerializeField] private float shotsPerSecond = 2f;
     [SerializeField] private Transform shotOrigin;
@@ -99,7 +99,7 @@ public class ShooterController : MonoBehaviour
 
     private void FireOnce(int targetId)
     { 
-        //if (!projectilePrefab || !damageEventChannel || !agentRoot) return;
+        if (!projectilePrefab || !damageEventChannel || !agentRoot) return;
 
         if (_currentTarget == null || _currentTarget.AgentId != targetId)
             _currentTarget = ResolveTarget(targetId);
@@ -134,14 +134,14 @@ public class ShooterController : MonoBehaviour
         float offset = Mathf.Max(0f, muzzleForwardOffset);
         Vector3 spawnPos = originPos + (dir * offset);
 
-        //Projectile proj = Instantiate(projectilePrefab, spawnPos, rotation);
-        /*proj.Initialize(
+        Projectile proj = Instantiate(projectilePrefab, spawnPos, rotation);
+        proj.Initialize(
             attackerId: agentRoot.AgentId, 
             targetId: targetId,
             damage: weaponDamage,
             damageEventChannel: damageEventChannel,
             attackerCollider: agentRoot.PickupBodyCollider
-            );*/
+            );
     }
 
     public void SetShotOrigin(Transform origin)
