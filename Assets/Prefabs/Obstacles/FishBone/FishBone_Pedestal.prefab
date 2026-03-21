@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4642637748616292379}
   - component: {fileID: 8641536549024085068}
   - component: {fileID: 8166151378171369064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FishBone_Pedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,6 +1836,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}

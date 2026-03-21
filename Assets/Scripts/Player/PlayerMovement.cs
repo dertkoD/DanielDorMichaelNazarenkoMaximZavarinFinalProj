@@ -139,19 +139,7 @@ public class PlayerMovement : MonoBehaviour
         if (input.sqrMagnitude < 0.0001f)
             return Vector3.zero;
 
-        Vector3 rawDirection;
-
-        if (movementReference == null)
-        {
-            rawDirection = new Vector3(input.x, 0f, input.y);
-        }
-        else
-        {
-            Vector3 flatForward = Vector3.ProjectOnPlane(movementReference.forward, Vector3.up).normalized;
-            Vector3 flatRight = Vector3.ProjectOnPlane(movementReference.right, Vector3.up).normalized;
-
-            rawDirection = flatRight * input.x + flatForward * input.y;
-        }
+        Vector3 rawDirection = new Vector3(input.x, 0f, input.y);
 
         rawDirection = Vector3.ProjectOnPlane(rawDirection, planeNormal);
 
