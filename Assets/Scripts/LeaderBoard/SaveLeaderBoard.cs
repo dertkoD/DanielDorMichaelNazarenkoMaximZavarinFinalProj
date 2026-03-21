@@ -40,9 +40,9 @@ public class SaveLeaderBoard : MonoBehaviour
             for (int i = 0; i < playerCount; i++)
             {
                 string playerName = reader.ReadString();
-                float playerScore = reader.ReadSingle();
+                float playerTime = reader.ReadSingle();
                 
-                scoreTableToLoad.Add(playerName, playerScore);
+                scoreTableToLoad.Add(playerName, playerTime);
             }
         }
 

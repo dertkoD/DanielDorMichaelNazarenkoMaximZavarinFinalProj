@@ -154,3 +154,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledBullet
   lifeTime: 5
+  damageEventChannel: {fileID: 11400000, guid: 2a1591b2a9e998e4990a66eddba63171, type: 2}

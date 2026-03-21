@@ -25,7 +25,7 @@ public class LeaderBoardManager : MonoBehaviour
         {
             SavePlayerScoreInDictionary(
                 GameSession.CurrentPlayerName,
-                GameSession.CurrentPlayerScore
+                GameSession.CurrentPlayerTime
             );
         }
         
@@ -38,10 +38,10 @@ public class LeaderBoardManager : MonoBehaviour
         string playerName = _playerNameInput.GetPlayerName().ToLower();
 
         GameSession.CurrentPlayerName = playerName;
-        GameSession.CurrentPlayerScore = 0;
+        GameSession.CurrentPlayerTime = 0;
         _playerNameInput.CleanInput();
         
-        uiLeader.UpdateCurrentPlayerStats(playerName,  GameSession.CurrentPlayerScore);
+        uiLeader.UpdateCurrentPlayerStats(playerName,  GameSession.CurrentPlayerTime);
         
         if (!scoreTable.ContainsKey(playerName))
         {
@@ -54,11 +54,11 @@ public class LeaderBoardManager : MonoBehaviour
     }
     
     // Save new score if it's bigger than previous
-    private void SavePlayerScoreInDictionary(string playerName, float score)
+    private void SavePlayerScoreInDictionary(string playerName, float time)
     {
-        if (score > scoreTable[playerName])
+        if (time > scoreTable[playerName])
         {
-            scoreTable[playerName] = score;
+            scoreTable[playerName] = time;
         }
 
         saveSystem.SaveLeaderBoardData(scoreTable);

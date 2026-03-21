@@ -15,6 +15,9 @@ public class PlayerAimController : MonoBehaviour
     private Quaternion targetRotation;
     private bool hasValidTargetRotation;
 
+    public Vector3 CurrentAimPoint { get; private set; }
+    public bool HasAimPoint { get; private set; }
+
     public void SetPointerScreenPosition(Vector2 value)
     {
         pointerScreenPosition = value;
@@ -34,19 +37,25 @@ public class PlayerAimController : MonoBehaviour
         if (worldCamera == null) return;
         if (rigidbodyComponent == null) return;
 
+        Ray ray = worldCamera.ScreenPointToRay(pointerScreenPosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(0f, rigidbodyComponent.position.y, 0f));
+
+        if (!plane.Raycast(ray, out float enter))
+        {
+            HasAimPoint = false;
+            return;
+        }
+
+        Vector3 hitPoint = ray.GetPoint(enter);
+        CurrentAimPoint = hitPoint;
+        HasAimPoint = true;
+
         if (rotateOnlyWhenHasWeapon)
         {
             if (playerWeaponController == null) return;
             if (!playerWeaponController.HasWeapon) return;
         }
 
-        Ray ray = worldCamera.ScreenPointToRay(pointerScreenPosition);
-        Plane plane = new Plane(Vector3.up, new Vector3(0f, rigidbodyComponent.position.y, 0f));
-
-        if (!plane.Raycast(ray, out float enter))
-            return;
-
-        Vector3 hitPoint = ray.GetPoint(enter);
         Vector3 direction = hitPoint - rigidbodyComponent.position;
         direction.y = 0f;
 

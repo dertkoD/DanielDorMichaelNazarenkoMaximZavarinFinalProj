@@ -9,6 +9,8 @@ public class BulletPool : MonoBehaviour
 
     private readonly Queue<PooledBullet> pool = new Queue<PooledBullet>();
 
+    private Transform PoolRoot => poolContainer != null ? poolContainer : transform;
+
     private void Awake()
     {
         for (int i = 0; i < initialSize; i++)
@@ -19,10 +21,9 @@ public class BulletPool : MonoBehaviour
 
     private PooledBullet CreateBullet()
     {
-        PooledBullet bullet = Instantiate(
-            bulletPrefab,
-            poolContainer != null ? poolContainer : transform
-        );
+        PooledBullet bullet = Instantiate(bulletPrefab, PoolRoot);
+        bullet.transform.localPosition = Vector3.zero;
+        bullet.transform.localRotation = Quaternion.identity;
 
         bullet.Init(this);
         bullet.gameObject.SetActive(false);
@@ -39,6 +40,8 @@ public class BulletPool : MonoBehaviour
         }
 
         PooledBullet bullet = pool.Dequeue();
+
+        bullet.transform.SetParent(null, true);
         bullet.transform.SetPositionAndRotation(position, rotation);
         bullet.gameObject.SetActive(true);
 
@@ -47,6 +50,7 @@ public class BulletPool : MonoBehaviour
 
     public void ReturnBullet(PooledBullet bullet)
     {
+        bullet.transform.SetParent(PoolRoot, true);
         bullet.gameObject.SetActive(false);
         pool.Enqueue(bullet);
     }

@@ -13,12 +13,17 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float fireRate = 8f;
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private float bulletLifetime = 5f;
+    [SerializeField] private int bulletDamage = 10;
 
     [Header("Direction")]
     [SerializeField] private bool flattenDirectionToGround = true;
 
     private bool isFireHeld;
     private float nextFireTime;
+
+    private Vector3 currentAimPoint;
+    private bool hasAimPoint;
+    private int ownerObjectId = -1;
 
     public Transform Muzzle => muzzle;
     public bool Automatic => automatic;
@@ -30,6 +35,17 @@ public class Weapon : MonoBehaviour
         if (!isFireHeld) return;
 
         TryFireInternal();
+    }
+
+    public void SetOwnerObjectId(int value)
+    {
+        ownerObjectId = value;
+    }
+
+    public void SetAimPoint(Vector3 aimPoint)
+    {
+        currentAimPoint = aimPoint;
+        hasAimPoint = true;
     }
 
     public void StartFire()
@@ -54,19 +70,29 @@ public class Weapon : MonoBehaviour
     {
         if (muzzle == null) return;
         if (bulletPool == null) return;
+        if (!hasAimPoint) return;
         if (fireRate <= 0f) return;
         if (Time.time < nextFireTime) return;
 
         nextFireTime = Time.time + (1f / fireRate);
 
-        Vector3 direction = muzzle.forward;
+        Vector3 direction;
 
         if (flattenDirectionToGround)
         {
-            direction = Vector3.ProjectOnPlane(direction, Vector3.up);
+            Vector3 flatAimPoint = new Vector3(currentAimPoint.x, muzzle.position.y, currentAimPoint.z);
+            direction = flatAimPoint - muzzle.position;
+
             if (direction.sqrMagnitude < 0.0001f)
-                direction = transform.forward;
+                direction = Vector3.ProjectOnPlane(muzzle.forward, Vector3.up);
         }
+        else
+        {
+            direction = currentAimPoint - muzzle.position;
+        }
+
+        if (direction.sqrMagnitude < 0.0001f)
+            return;
 
         direction.Normalize();
 
@@ -75,6 +101,12 @@ public class Weapon : MonoBehaviour
             Quaternion.LookRotation(direction)
         );
 
-        bullet.Launch(direction, bulletSpeed, bulletLifetime);
+        bullet.Launch(
+            direction,
+            bulletSpeed,
+            bulletLifetime,
+            bulletDamage,
+            ownerObjectId
+        );
     }
 }
