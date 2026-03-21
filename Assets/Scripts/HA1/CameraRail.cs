@@ -3,19 +3,18 @@ using UnityEngine;
 public class CameraRail : MonoBehaviour
 {
     [Header("Rail points")]
-    public Transform startPoint;
-    public Transform endPoint;
+    [SerializeField] private Transform[] railPoints;
 
     [Header("Target")]
-    public Transform target;
+    [SerializeField] private Transform target;
 
     [Header("Movement")]
-    public float smoothTime = 0.12f;
-    public bool clampToRail = true;
-    public bool followOnlyForward = true;
+    [SerializeField] private float smoothTime = 0.12f;
+    [SerializeField] private bool clampToRail = true;
+    [SerializeField] private bool followOnlyForward = true;
 
     [Range(0f, 1f)]
-    public float t = 0f;
+    [SerializeField] private float t = 0f;
 
     private float _tVelocity;
     private bool isGameActive = true;
@@ -25,7 +24,8 @@ public class CameraRail : MonoBehaviour
 
     private void Start()
     {
-        if (!startPoint || !endPoint || !target) return;
+        if (!HasValidSetup())
+            return;
 
         float cameraT = GetProjectedT(transform.position);
         float targetT = GetProjectedT(target.position);
@@ -33,14 +33,17 @@ public class CameraRail : MonoBehaviour
         _cameraToTargetOffsetT = cameraT - targetT;
         t = cameraT;
 
-        Vector3 cameraRailPoint = Vector3.Lerp(startPoint.position, endPoint.position, cameraT);
+        Vector3 cameraRailPoint = EvaluateRailPosition(cameraT);
         _railOffset = transform.position - cameraRailPoint;
     }
 
     private void LateUpdate()
     {
-        if (!startPoint || !endPoint || !target) return;
-        if (!isGameActive) return;
+        if (!HasValidSetup())
+            return;
+
+        if (!isGameActive)
+            return;
 
         float targetT = GetProjectedT(target.position);
         float desiredT = targetT + _cameraToTargetOffsetT;
@@ -53,25 +56,117 @@ public class CameraRail : MonoBehaviour
 
         t = Mathf.SmoothDamp(t, desiredT, ref _tVelocity, smoothTime);
 
-        Vector3 railPos = Vector3.Lerp(startPoint.position, endPoint.position, t);
+        if (clampToRail)
+            t = Mathf.Clamp01(t);
+
+        Vector3 railPos = EvaluateRailPosition(t);
         transform.position = railPos + _railOffset;
+    }
+
+    private bool HasValidSetup()
+    {
+        return target != null && railPoints != null && railPoints.Length >= 2;
     }
 
     private float GetProjectedT(Vector3 worldPos)
     {
-        Vector3 rail = endPoint.position - startPoint.position;
-        float railLengthSqr = rail.sqrMagnitude;
-
-        if (railLengthSqr < 0.0001f)
+        float totalLength = GetTotalRailLength();
+        if (totalLength <= 0.0001f)
             return 0f;
 
-        Vector3 fromStart = worldPos - startPoint.position;
-        float projectedT = Vector3.Dot(fromStart, rail) / railLengthSqr;
+        float bestDistanceSqr = float.MaxValue;
+        float bestGlobalT = 0f;
+
+        float accumulatedLength = 0f;
+
+        for (int i = 0; i < railPoints.Length - 1; i++)
+        {
+            Vector3 a = railPoints[i].position;
+            Vector3 b = railPoints[i + 1].position;
+            Vector3 segment = b - a;
+
+            float segmentLength = segment.magnitude;
+            if (segmentLength <= 0.0001f)
+                continue;
+
+            float segmentLengthSqr = segment.sqrMagnitude;
+            float localT = Vector3.Dot(worldPos - a, segment) / segmentLengthSqr;
+
+            if (clampToRail)
+                localT = Mathf.Clamp01(localT);
+
+            Vector3 projectedPoint = Vector3.Lerp(a, b, localT);
+            float distanceSqr = (worldPos - projectedPoint).sqrMagnitude;
+
+            if (distanceSqr < bestDistanceSqr)
+            {
+                bestDistanceSqr = distanceSqr;
+
+                float distanceAlongRail = accumulatedLength + localT * segmentLength;
+                bestGlobalT = distanceAlongRail / totalLength;
+            }
+
+            accumulatedLength += segmentLength;
+        }
 
         if (clampToRail)
-            projectedT = Mathf.Clamp01(projectedT);
+            bestGlobalT = Mathf.Clamp01(bestGlobalT);
 
-        return projectedT;
+        return bestGlobalT;
+    }
+
+    private Vector3 EvaluateRailPosition(float globalT)
+    {
+        if (railPoints == null || railPoints.Length == 0)
+            return transform.position;
+
+        if (railPoints.Length == 1)
+            return railPoints[0].position;
+
+        float totalLength = GetTotalRailLength();
+        if (totalLength <= 0.0001f)
+            return railPoints[0].position;
+
+        globalT = Mathf.Clamp01(globalT);
+        float targetDistance = globalT * totalLength;
+
+        float accumulatedLength = 0f;
+
+        for (int i = 0; i < railPoints.Length - 1; i++)
+        {
+            Vector3 a = railPoints[i].position;
+            Vector3 b = railPoints[i + 1].position;
+
+            float segmentLength = Vector3.Distance(a, b);
+            if (segmentLength <= 0.0001f)
+                continue;
+
+            if (targetDistance <= accumulatedLength + segmentLength)
+            {
+                float localDistance = targetDistance - accumulatedLength;
+                float localT = localDistance / segmentLength;
+                return Vector3.Lerp(a, b, localT);
+            }
+
+            accumulatedLength += segmentLength;
+        }
+
+        return railPoints[railPoints.Length - 1].position;
+    }
+
+    private float GetTotalRailLength()
+    {
+        if (railPoints == null || railPoints.Length < 2)
+            return 0f;
+
+        float total = 0f;
+
+        for (int i = 0; i < railPoints.Length - 1; i++)
+        {
+            total += Vector3.Distance(railPoints[i].position, railPoints[i + 1].position);
+        }
+
+        return total;
     }
 
     public void SetGameActive(bool active)
