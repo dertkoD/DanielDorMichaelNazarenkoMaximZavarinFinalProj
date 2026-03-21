@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float airAcceleration = 6f;
     [SerializeField] private float airDeceleration = 2f;
     [SerializeField] private float airTurnAcceleration = 3f;
+    
+    [Header("Slope Slide")]
+    [SerializeField] private float slideStartAngle = 35f;
+    [SerializeField] private float slideAcceleration = 8f;
+    [SerializeField] private float maxSlideSpeed = 5f;
 
     private Vector2 moveInput;
 
@@ -71,23 +76,52 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            horizontalVelocity = Vector3.MoveTowards(
-                horizontalVelocity,
-                Vector3.zero,
-                deceleration * Time.fixedDeltaTime
-            );
+            if (isGrounded && groundChecker != null && ShouldSlide(out Vector3 slideDirection))
+            {
+                Vector3 slideTargetVelocity = slideDirection * maxSlideSpeed;
+
+                horizontalVelocity = Vector3.MoveTowards(
+                    horizontalVelocity,
+                    slideTargetVelocity,
+                    slideAcceleration * Time.fixedDeltaTime
+                );
+            }
+            else
+            {
+                horizontalVelocity = Vector3.MoveTowards(
+                    horizontalVelocity,
+                    Vector3.zero,
+                    deceleration * Time.fixedDeltaTime
+                );
+            }
         }
 
         rigidbodyComponent.linearVelocity = new Vector3(
-            horizontalVelocity.x,
-            rigidbodyComponent.linearVelocity.y,
-            horizontalVelocity.z
-        );
+                horizontalVelocity.x,
+                rigidbodyComponent.linearVelocity.y,
+                horizontalVelocity.z
+                );
+    }
+    
+    private bool ShouldSlide(out Vector3 slideDirection)
+    {
+        slideDirection = Vector3.zero;
+
+        RaycastHit hit = groundChecker.GroundHit;
+        Vector3 groundNormal = hit.normal;
+
+        float slopeAngle = Vector3.Angle(groundNormal, Vector3.up);
+        if (slopeAngle < slideStartAngle)
+            return false;
+
+        slideDirection = Vector3.ProjectOnPlane(Vector3.down, groundNormal).normalized;
+
+        return slideDirection.sqrMagnitude > 0.0001f;
     }
 
-    private Vector3 GetMoveDirection(Vector2 input)
-    {
-        if (input.sqrMagnitude < 0.0001f)
+    private Vector3 GetMoveDirection(Vector2 input) 
+    { 
+        if (input.sqrMagnitude < 0.0001f) 
             return Vector3.zero;
 
         if (movementReference == null)

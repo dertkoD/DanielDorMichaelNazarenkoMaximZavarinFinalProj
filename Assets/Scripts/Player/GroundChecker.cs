@@ -11,10 +11,12 @@ public class GroundChecker : MonoBehaviour
     [SerializeField] private float skin = 0.01f;
     [SerializeField] private float maxSlopeAngle = 60f;
     [SerializeField] private bool drawDebug = false;
-
+    
     public bool IsGrounded { get; private set; }
     public RaycastHit GroundHit => _hit;
 
+    public Collider GroundCollider => _hit.collider;
+    
     private RaycastHit _hit;
 
     private void FixedUpdate()
@@ -71,7 +73,11 @@ public class GroundChecker : MonoBehaviour
 
     private float GetCastDistance()
     {
-        return extraDistance + skin;
+        float radius = GetCastRadius();
+        float cos = Mathf.Cos(maxSlopeAngle * Mathf.Deg2Rad);
+        float slopeCompensation = radius * ((1f / cos) - 1f);
+
+        return extraDistance + skin + slopeCompensation;
     }
 
     private float GetCastRadius()
