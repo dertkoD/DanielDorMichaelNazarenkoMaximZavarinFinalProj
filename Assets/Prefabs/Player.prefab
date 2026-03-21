@@ -10615,7 +10615,6 @@ MonoBehaviour:
   jumpAction: {fileID: 0}
   fireAction: {fileID: 0}
   lookAction: {fileID: 0}
-  reloadAction: {fileID: 0}
   playerMovement: {fileID: 7604744420711723004}
   playerJump: {fileID: 530732026569256937}
   playerWeaponController: {fileID: 3169216324536903959}
@@ -10829,9 +10828,6 @@ MonoBehaviour:
   - {fileID: 8248381256014549084}
   - {fileID: 2355892945467325657}
   - {fileID: 2337153707802166232}
-  hipsBone: {fileID: 7704248685460922816}
-  chestBone: {fileID: 5886968291136142706}
-  invertFaceUpCheck: 1
   minRagdollTime: 1.25
   getUpFromBackTrigger: GetUpFromBack
   getUpFromFrontTrigger: GetUpFromFront

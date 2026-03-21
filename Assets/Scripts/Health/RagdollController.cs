@@ -13,11 +13,6 @@ public class RagdollController : MonoBehaviour
     [SerializeField] private Rigidbody[] ragdollBodies;
     [SerializeField] private Collider[] ragdollColliders;
 
-    [Header("Pose Detection")]
-    [SerializeField] private Transform hipsBone;
-    [SerializeField] private Transform chestBone;
-    [SerializeField] private bool invertFaceUpCheck = false;
-
     [Header("Recovery")]
     [SerializeField] private float minRagdollTime = 1.25f;
     [SerializeField] private string getUpFromBackTrigger = "GetUpFromBack";
@@ -45,10 +40,12 @@ public class RagdollController : MonoBehaviour
     public void ActivateRagdoll(float extraTime)
     {
         if (!IsRagdollActive)
+        {
             SetRagdollState(true);
+        }
 
         canRecover = true;
-        recoverAtTime = Mathf.Max(recoverAtTime, Time.time + Mathf.Max(minRagdollTime, extraTime));
+        recoverAtTime = Mathf.Max(recoverAtTime, Time.time + extraTime);
     }
 
     public void HoldRagdoll(float extraTime)
@@ -60,7 +57,7 @@ public class RagdollController : MonoBehaviour
         }
 
         canRecover = true;
-        recoverAtTime = Mathf.Max(recoverAtTime, Time.time + Mathf.Max(minRagdollTime, extraTime));
+        recoverAtTime = Mathf.Max(recoverAtTime, Time.time + extraTime);
     }
 
     public void ForceRecoverNow()
@@ -101,7 +98,6 @@ public class RagdollController : MonoBehaviour
             {
                 if (body == null) continue;
                 body.isKinematic = !active;
-
                 if (!active)
                 {
                     body.linearVelocity = Vector3.zero;
@@ -136,16 +132,10 @@ public class RagdollController : MonoBehaviour
             animator.enabled = true;
             animator.Play("Idle", 0, 0f);
 
-            if (faceUp)
-            {
-                if (!string.IsNullOrEmpty(getUpFromBackTrigger))
-                    animator.SetTrigger(getUpFromBackTrigger);
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(getUpFromFrontTrigger))
-                    animator.SetTrigger(getUpFromFrontTrigger);
-            }
+            if (faceUp && !string.IsNullOrEmpty(getUpFromBackTrigger))
+                animator.SetTrigger(getUpFromBackTrigger);
+            else if (!faceUp && !string.IsNullOrEmpty(getUpFromFrontTrigger))
+                animator.SetTrigger(getUpFromFrontTrigger);
         }
 
         recoverAtTime = -1f;
@@ -154,20 +144,16 @@ public class RagdollController : MonoBehaviour
 
     private Vector3 GetRagdollHipsPosition()
     {
-        if (hipsBone != null)
-            return new Vector3(hipsBone.position.x, transform.position.y, hipsBone.position.z);
+        if (ragdollBodies == null || ragdollBodies.Length == 0)
+            return transform.position;
 
-        if (ragdollBodies != null && ragdollBodies.Length > 0 && ragdollBodies[0] != null)
-            return new Vector3(ragdollBodies[0].position.x, transform.position.y, ragdollBodies[0].position.z);
-
-        return transform.position;
+        Rigidbody hips = ragdollBodies[0];
+        return new Vector3(hips.position.x, transform.position.y, hips.position.z);
     }
 
     private Quaternion GetStandUpRotation()
     {
-        Transform referenceBone = chestBone != null ? chestBone : hipsBone;
-
-        Vector3 forward = referenceBone != null ? referenceBone.forward : (visualRoot != null ? visualRoot.forward : transform.forward);
+        Vector3 forward = visualRoot != null ? visualRoot.forward : transform.forward;
         forward.y = 0f;
 
         if (forward.sqrMagnitude < 0.0001f)
@@ -178,37 +164,9 @@ public class RagdollController : MonoBehaviour
 
     private bool IsFaceUp()
     {
-        bool? chestResult = EvaluateBoneFaceUp(chestBone);
-        bool? hipsResult = EvaluateBoneFaceUp(hipsBone);
+        if (visualRoot == null)
+            return Vector3.Dot(transform.up, Vector3.up) > 0f;
 
-        bool result;
-
-        if (chestResult.HasValue)
-            result = chestResult.Value;
-        else if (hipsResult.HasValue)
-            result = hipsResult.Value;
-        else if (visualRoot != null)
-            result = Vector3.Dot(visualRoot.up, Vector3.up) > 0f;
-        else
-            result = Vector3.Dot(transform.up, Vector3.up) > 0f;
-
-        if (invertFaceUpCheck)
-            result = !result;
-
-        return result;
-    }
-
-    private bool? EvaluateBoneFaceUp(Transform bone)
-    {
-        if (bone == null)
-            return null;
-
-        float forwardDot = Vector3.Dot(bone.forward, Vector3.up);
-        float upDot = Vector3.Dot(bone.up, Vector3.up);
-
-        if (Mathf.Abs(forwardDot) >= Mathf.Abs(upDot))
-            return forwardDot < 0f;
-
-        return upDot > 0f;
+        return Vector3.Dot(visualRoot.up, Vector3.up) > 0f;
     }
 }
