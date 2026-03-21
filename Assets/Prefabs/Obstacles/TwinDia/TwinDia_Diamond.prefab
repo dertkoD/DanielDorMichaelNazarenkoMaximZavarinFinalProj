@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4990135555451918981}
   - component: {fileID: 3949760753486319880}
   - component: {fileID: 4826700972278861342}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwinDia_Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,6 +353,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
