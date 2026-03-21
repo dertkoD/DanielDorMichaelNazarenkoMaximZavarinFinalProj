@@ -7,11 +7,14 @@ public class ForwardShooter : MonoBehaviour
     [SerializeField] private BulletPool bulletPool;
     [SerializeField] private Transform firePoint;
 
+    [Header("Owner")]
+    [SerializeField] private int ownerObjectId = -1;
+
     [Header("Start")]
     [SerializeField] private bool shootOnStart = true;
     [SerializeField] private bool loopShooting = true;
 
-    [Header("Taimings")]
+    [Header("Timings")]
     [SerializeField] private float firstShotDelay = 0.5f;
     [SerializeField] private float fireRate = 1.0f;
 
@@ -23,6 +26,7 @@ public class ForwardShooter : MonoBehaviour
     [Header("Bullet")]
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private float bulletLifeTime = 5f;
+    [SerializeField] private int bulletDamage = 10;
 
     private Coroutine shootCoroutine;
 
@@ -82,6 +86,9 @@ public class ForwardShooter : MonoBehaviour
 
     private void FireSingleBullet()
     {
+        if (bulletPool == null || firePoint == null)
+            return;
+
         Vector3 dir = Vector3.ProjectOnPlane(-firePoint.forward, Vector3.up);
 
         if (dir.sqrMagnitude < 0.0001f)
@@ -94,6 +101,12 @@ public class ForwardShooter : MonoBehaviour
             Quaternion.LookRotation(dir)
         );
 
-        bullet.Launch(dir, bulletSpeed, bulletLifeTime);
+        bullet.Launch(
+            dir,
+            bulletSpeed,
+            bulletLifeTime,
+            bulletDamage,
+            ownerObjectId
+        );
     }
 }

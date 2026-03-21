@@ -13,6 +13,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float fireRate = 8f;
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private float bulletLifetime = 5f;
+    [SerializeField] private int bulletDamage = 10;
 
     [Header("Direction")]
     [SerializeField] private bool flattenDirectionToGround = true;
@@ -22,6 +23,7 @@ public class Weapon : MonoBehaviour
 
     private Vector3 currentAimPoint;
     private bool hasAimPoint;
+    private int ownerObjectId = -1;
 
     public Transform Muzzle => muzzle;
     public bool Automatic => automatic;
@@ -33,6 +35,11 @@ public class Weapon : MonoBehaviour
         if (!isFireHeld) return;
 
         TryFireInternal();
+    }
+
+    public void SetOwnerObjectId(int value)
+    {
+        ownerObjectId = value;
     }
 
     public void SetAimPoint(Vector3 aimPoint)
@@ -94,6 +101,12 @@ public class Weapon : MonoBehaviour
             Quaternion.LookRotation(direction)
         );
 
-        bullet.Launch(direction, bulletSpeed, bulletLifetime);
+        bullet.Launch(
+            direction,
+            bulletSpeed,
+            bulletLifetime,
+            bulletDamage,
+            ownerObjectId
+        );
     }
 }

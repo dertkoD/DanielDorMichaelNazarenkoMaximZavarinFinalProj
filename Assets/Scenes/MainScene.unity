@@ -16177,6 +16177,7 @@ GameObject:
   - component: {fileID: 7953865916773195853}
   - component: {fileID: 7953865916773195854}
   - component: {fileID: 7953865916773195856}
+  - component: {fileID: 7953865916773195857}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -41867,6 +41868,31 @@ MonoBehaviour:
   aimParam: Aim
   maxAnimSpeed: 6
   dampTime: 0.08
+--- !u!114 &7953865916773195857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485406143318535691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bd25c72b6d8ff488b7fbc485291abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  objectId: 0
+  maxHp: 100
+  currentHp: 100
+  animator: {fileID: 7923338159792500427}
+  deathTrigger: Death
+  hasWeaponParam: HasWeapon
+  behavioursToDisable: []
+  collidersToDisable: []
+  rigidbodyToStop: {fileID: 1630154903}
+  damageEventChannel: {fileID: 11400000, guid: 2a1591b2a9e998e4990a66eddba63171, type: 2}
+  healthChangedAction: {fileID: 11400000, guid: 64b6190a0a04d4640b4ac6fb2bbd8881, type: 2}
+  gameOverAction: {fileID: 11400000, guid: 7e1b2dab97af1c046bb8ae63d2113abf, type: 2}
+  winnerObjectIdOnDeath: -1
 --- !u!4 &8059883632666070111
 Transform:
   m_ObjectHideFlags: 0
