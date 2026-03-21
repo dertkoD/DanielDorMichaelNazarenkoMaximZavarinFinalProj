@@ -80,6 +80,7 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon = Instantiate(weaponPrefab, weaponSocket);
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.transform.localRotation = Quaternion.identity;
+        currentWeapon.SetOwnerObjectId(objectId);
 
         weaponEquippedChannel?.Raise(objectId, weaponId);
     }
@@ -100,5 +101,11 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (!HasWeapon) return;
         currentWeapon.TryFireOnce();
+    }
+
+    public void Reload()
+    {
+        if (!HasWeapon) return;
+        currentWeapon.Reload();
     }
 }

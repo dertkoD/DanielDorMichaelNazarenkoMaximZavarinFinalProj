@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference fireAction;
     [SerializeField] private InputActionReference lookAction;
+    [SerializeField] private InputActionReference reloadAction;
 
     [Header("Modules")]
     [SerializeField] private PlayerMovement playerMovement;
@@ -33,6 +34,12 @@ public class PlayerController : MonoBehaviour
             fireAction.action.started += OnFireStarted;
             fireAction.action.canceled += OnFireCanceled;
         }
+
+        if (reloadAction != null)
+        {
+            reloadAction.action.Enable();
+            reloadAction.action.started += OnReloadStarted;
+        }
     }
 
     private void OnDisable()
@@ -52,6 +59,12 @@ public class PlayerController : MonoBehaviour
             fireAction.action.started -= OnFireStarted;
             fireAction.action.canceled -= OnFireCanceled;
             fireAction.action.Disable();
+        }
+
+        if (reloadAction != null)
+        {
+            reloadAction.action.started -= OnReloadStarted;
+            reloadAction.action.Disable();
         }
     }
 
@@ -88,5 +101,10 @@ public class PlayerController : MonoBehaviour
     private void OnFireCanceled(InputAction.CallbackContext context)
     {
         playerWeaponController?.StopFire();
+    }
+
+    private void OnReloadStarted(InputAction.CallbackContext context)
+    {
+        playerWeaponController?.Reload();
     }
 }
