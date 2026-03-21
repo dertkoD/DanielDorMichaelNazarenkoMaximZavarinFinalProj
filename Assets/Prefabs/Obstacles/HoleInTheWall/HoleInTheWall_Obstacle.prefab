@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8675650323497568592}
   - component: {fileID: 4973791534314317364}
   - component: {fileID: 2114651794468819880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HoleInTheWall_Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,81 +163,81 @@ MonoBehaviour:
   - m_Vertices: 0b0000000e00000012000000
   m_SharedTextures: []
   m_Positions:
-  - {x: 8, y: -0.5, z: 7}
-  - {x: 26, y: -0.5, z: 7}
-  - {x: 8, y: 0.5, z: 7}
-  - {x: 26, y: 0.5, z: 7}
-  - {x: 26, y: -0.5, z: 7}
-  - {x: 26, y: -0.5, z: -3}
-  - {x: 26, y: 0.5, z: 7}
-  - {x: 26, y: 0.5, z: -3}
-  - {x: 26, y: -0.5, z: -3}
-  - {x: 8, y: -0.5, z: -3}
-  - {x: 26, y: 0.5, z: -3}
-  - {x: 8, y: 0.5, z: -3}
-  - {x: 8, y: -0.5, z: -3}
-  - {x: 8, y: -0.5, z: 7}
-  - {x: 8, y: 0.5, z: -3}
-  - {x: 8, y: 0.5, z: 7}
-  - {x: 8, y: 0.5, z: 7}
-  - {x: 26, y: 0.5, z: 7}
-  - {x: 8, y: 0.5, z: -3}
-  - {x: 26, y: 0.5, z: -3}
-  - {x: 8, y: -0.5, z: -3}
-  - {x: 26, y: -0.5, z: -3}
-  - {x: 8, y: -0.5, z: 7}
-  - {x: 26, y: -0.5, z: 7}
+  - {x: 4.1948056, y: -0.5, z: 6.000023}
+  - {x: 25.999996, y: -0.5, z: 6.0000024}
+  - {x: 4.1948056, y: 0.5, z: 6.000023}
+  - {x: 25.999996, y: 0.5, z: 6.0000024}
+  - {x: 25.999996, y: -0.5, z: 6.0000024}
+  - {x: 26, y: -0.5, z: -1.9999976}
+  - {x: 25.999996, y: 0.5, z: 6.0000024}
+  - {x: 26, y: 0.5, z: -1.9999976}
+  - {x: 26, y: -0.5, z: -1.9999976}
+  - {x: 4.194809, y: -0.5, z: -1.9999774}
+  - {x: 26, y: 0.5, z: -1.9999976}
+  - {x: 4.194809, y: 0.5, z: -1.9999774}
+  - {x: 4.194809, y: -0.5, z: -1.9999774}
+  - {x: 4.1948056, y: -0.5, z: 6.000023}
+  - {x: 4.194809, y: 0.5, z: -1.9999774}
+  - {x: 4.1948056, y: 0.5, z: 6.000023}
+  - {x: 4.1948056, y: 0.5, z: 6.000023}
+  - {x: 25.999996, y: 0.5, z: 6.0000024}
+  - {x: 4.194809, y: 0.5, z: -1.9999774}
+  - {x: 26, y: 0.5, z: -1.9999976}
+  - {x: 4.194809, y: -0.5, z: -1.9999774}
+  - {x: 26, y: -0.5, z: -1.9999976}
+  - {x: 4.1948056, y: -0.5, z: 6.000023}
+  - {x: 25.999996, y: -0.5, z: 6.0000024}
   m_Textures0:
-  - {x: 4.5, y: 0.75}
+  - {x: 5.4512978, y: 0.75}
   - {x: 0, y: 0.75}
-  - {x: 4.5, y: 1}
+  - {x: 5.4512978, y: 1}
   - {x: 0, y: 1}
-  - {x: 2.5, y: 0.75}
+  - {x: 2, y: 0.75}
   - {x: 0, y: 0.75}
-  - {x: 2.5, y: 1}
+  - {x: 2, y: 1}
   - {x: 0, y: 1}
-  - {x: 4.5, y: 0.75}
+  - {x: 5.4512978, y: 0.75}
   - {x: 0, y: 0.75}
-  - {x: 4.5, y: 1}
+  - {x: 5.4512978, y: 1}
   - {x: 0, y: 1}
-  - {x: 2.5, y: 0.75}
+  - {x: 2, y: 0.75}
   - {x: 0, y: 0.75}
-  - {x: 2.5, y: 1}
+  - {x: 2, y: 1}
   - {x: 0, y: 1}
   - {x: 0, y: 1}
-  - {x: 4.5, y: 1}
-  - {x: 0, y: -1.5}
-  - {x: 4.5, y: -1.5}
-  - {x: 4.5, y: -1.5}
-  - {x: 0, y: -1.5}
-  - {x: 4.5, y: 1}
-  - {x: 0, y: 1}
+  - {x: 5.4512978, y: 0.9999949}
+  - {x: 0.00000071525574, y: -1}
+  - {x: 5.4512987, y: -1.0000052}
+  - {x: 5.4512978, y: -1}
+  - {x: 0, y: -1.0000052}
+  - {x: 5.4512987, y: 1}
+  - {x: 0.0000009536743, y: 0.9999949}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0, y: 0, z: 1, w: -1}
-  - {x: 0, y: 0, z: 1, w: -1}
-  - {x: 0, y: 0, z: 1, w: -1}
-  - {x: 0, y: 0, z: 1, w: -1}
+  - {x: -1, y: 0, z: 0.00000094032646, w: -1}
+  - {x: -1, y: 0, z: 0.00000094032646, w: -1}
+  - {x: -1, y: 0, z: 0.00000094032646, w: -1}
+  - {x: -1, y: 0, z: 0.00000094032646, w: -1}
+  - {x: -0.00000047683716, y: 0, z: 1, w: -1}
+  - {x: -0.00000047683716, y: 0, z: 1, w: -1}
+  - {x: -0.00000047683716, y: 0, z: 1, w: -1}
+  - {x: -0.00000047683716, y: 0, z: 1, w: -1}
+  - {x: 1, y: 0, z: -0.0000009293924, w: -1}
+  - {x: 1, y: 0, z: -0.0000009293924, w: -1}
+  - {x: 1, y: 0, z: -0.0000009293924, w: -1}
+  - {x: 1, y: 0, z: -0.0000009293924, w: -1}
+  - {x: 0.0000004172325, y: 0, z: -1, w: -1}
+  - {x: 0.0000004172325, y: 0, z: -1, w: -1}
+  - {x: 0.0000004172325, y: 0, z: -1, w: -1}
+  - {x: 0.0000004172325, y: 0, z: -1, w: -1}
   - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 0, y: 0, z: -1, w: -1}
-  - {x: 0, y: 0, z: -1, w: -1}
-  - {x: 0, y: 0, z: -1, w: -1}
-  - {x: 0, y: 0, z: -1, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: 1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -1, y: 0, z: 0, w: -1}
+  - {x: 1, y: 0, z: 0.000000010934029, w: -1}
+  - {x: 1, y: 0, z: 0.000000010934029, w: -1}
+  - {x: 1, y: 0, z: 0.000000021868058, w: -1}
+  - {x: -1, y: 0, z: -0.000000032802085, w: -1}
+  - {x: -1, y: 0, z: -0.000000016401042, w: -1}
+  - {x: -1, y: 0, z: -0.000000016401042, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   m_Colors: []
   m_UnwrapParameters:
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 19842
+  m_VersionIndex: 20145
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -455,10 +455,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8752301120817642639}
     m_Modifications:
-    - target: {fileID: 356006027557469961, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 654489874932131321, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.325119
@@ -499,21 +495,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1227426178320907114, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5116259882624114178, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
       propertyPath: m_Name
       value: HoleInTheWall_DoorMedium
       objectReference: {fileID: 0}
     - target: {fileID: 5233129421964934825, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5233129421964934825, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
       propertyPath: m_VersionIndex
-      value: 1855
+      value: 1864
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -535,7 +523,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1342906933091058351, guid: 9565ef63e3b3a2e4aa3331bcd7a863d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 1939
+      value: 1948
       objectReference: {fileID: 0}
     - target: {fileID: 2107018904218132996, guid: 9565ef63e3b3a2e4aa3331bcd7a863d6, type: 3}
       propertyPath: m_Name
@@ -645,7 +633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6509024358992431690, guid: a1db82c249bf1cb44a9dd2b74263cba5, type: 3}
       propertyPath: m_VersionIndex
-      value: 2065
+      value: 2074
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -667,15 +655,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3769399289121396775, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
       propertyPath: m_VersionIndex
-      value: 2071
+      value: 2080
       objectReference: {fileID: 0}
     - target: {fileID: 4310169782055467148, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
       propertyPath: m_Name
       value: HoleInTheWall_DoorNarrow
-      objectReference: {fileID: 0}
-    - target: {fileID: 7915329568552558052, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8486295484271870839, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
       propertyPath: m_LocalPosition.x

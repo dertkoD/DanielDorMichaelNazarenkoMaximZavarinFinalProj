@@ -10,6 +10,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float jumpForce = 8f;
     [SerializeField] private float jumpCooldown = 0.15f;
     [SerializeField] private float jumpBufferTime = 0.12f;
+    [SerializeField] private string noJumpLayerName = "Dirt";
 
     [Header("Falling")]
     [SerializeField] private float extraFallGravity = 12f;
@@ -20,6 +21,18 @@ public class PlayerJump : MonoBehaviour
     private float lastJumpPressedTime = -999f;
     private float lastJumpTime = -999f;
 
+    private bool IsOnNoJumpSurface()
+    {
+        if (!groundChecker.IsGrounded)
+            return false;
+
+        Collider ground = groundChecker.GroundCollider;
+        if (!ground)
+            return false;
+        
+        return ground.gameObject.layer == LayerMask.NameToLayer(noJumpLayerName);
+    }
+    
     public void QueueJump()
     {
         jumpQueued = true;
@@ -46,6 +59,9 @@ public class PlayerJump : MonoBehaviour
         bool cooldownReady = Time.time - lastJumpTime >= jumpCooldown;
 
         if (!groundChecker.IsGrounded || !hasBufferedJump || !cooldownReady)
+            return;
+        
+        if (IsOnNoJumpSurface())
             return;
 
         Vector3 velocity = rigidbodyComponent.linearVelocity;
