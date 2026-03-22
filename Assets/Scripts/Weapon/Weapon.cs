@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform muzzle;
     [SerializeField] private BulletPool bulletPool;
+    [SerializeField] private ParticleSystem shootPartical;
 
     [Header("Fire Mode")]
     [SerializeField] private bool automatic = true;
@@ -108,5 +109,8 @@ public class Weapon : MonoBehaviour
             bulletDamage,
             ownerObjectId
         );
+        
+        shootPartical.Play();
+        AudioManager.Instance.PlayShootSounds();        
     }
 }
