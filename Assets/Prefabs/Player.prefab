@@ -10709,7 +10709,7 @@ MonoBehaviour:
   groundSpeed: 3
   airSpeed: 3
   groundSlideDecay: 2.5
-  airSlideDecay: 0.5
+  airSlideDecay: 1
   dirtLayerName: Dirt
   dirtSpeedMultiplier: 0.5
   dirtSlideDecayMultiplier: 0
@@ -21488,7 +21488,7 @@ Transform:
   m_GameObject: {fileID: 3607516184189442422}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.34, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21505,8 +21505,8 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 0.6981132, g: 0.54367435, b: 0, a: 1}
-  m_Intensity: 15
-  m_Range: 3.94
+  m_Intensity: 0.1
+  m_Range: 1.61
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 0.5, y: 0.5}
