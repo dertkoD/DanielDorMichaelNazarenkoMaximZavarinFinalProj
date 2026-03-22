@@ -50,7 +50,9 @@ public class PauseMenu : MonoBehaviour
         if (isPaused) return;
 
         isPaused = true;
-        _timer.StopTimer();
+        
+        if (_timer)
+            _timer.StopTimer();
 
         if (pauseMenuRoot != null)
             pauseMenuRoot.SetActive(true);
@@ -65,7 +67,8 @@ public class PauseMenu : MonoBehaviour
         if (pauseMenuRoot != null)
             pauseMenuRoot.SetActive(false);
 
-        _timer.ResumeTimer();
+        if (_timer)
+            _timer.ResumeTimer();
         Time.timeScale = 1f;
     }
 
