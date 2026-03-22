@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
         {
             warningText.text = "";
             GameManager.Instance.SetPlayerName(enteredName);
-            SceneTransitionManager.Instance.TransitionToScene("MainScene");
+            SceneTransitionManager.Instance.TransitionToScene("ParkurScene");
             //GameManager.Instance.SetElapsedTime(0f);
         }
     }

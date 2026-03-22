@@ -6245,7 +6245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546e47c1ea5314242996232fefc6f07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  _uiAudio: {fileID: 0}
+  _uiAudio: {fileID: 1534318689}
   masterMixerGroup: {fileID: 24100000, guid: 0eaed33443bd6854fb3e8c0bc2cb4d9b, type: 2}
   backGroundMixer: {fileID: -6440841639593657634, guid: 0eaed33443bd6854fb3e8c0bc2cb4d9b, type: 2}
   soundMixer: {fileID: 3056491224892432606, guid: 0eaed33443bd6854fb3e8c0bc2cb4d9b, type: 2}
