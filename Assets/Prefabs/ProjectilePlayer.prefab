@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3733011888224861573}
   - component: {fileID: 3120181276579393918}
   m_Layer: 0
-  m_Name: ProjectileSwatObstacle
+  m_Name: ProjectilePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,11 +30,11 @@ Transform:
   m_GameObject: {fileID: 4844329095727320760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.93645, y: 1.25748, z: -24.13645}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6490797884611656794}
+  - {fileID: 186117745633336678}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4507578901805462790
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 69343db0a1220af4598312adffdda639, type: 2}
+  - {fileID: 2100000, guid: 2faf4940002b928478cc632b2af37a89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PooledBullet
   lifeTime: 5
   damageEventChannel: {fileID: 11400000, guid: 2a1591b2a9e998e4990a66eddba63171, type: 2}
---- !u!1 &5898391305884463187
+--- !u!1 &8813657683559310696
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,9 +164,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6490797884611656794}
-  - component: {fileID: 5093457043908527327}
-  - component: {fileID: 6646535046253441153}
+  - component: {fileID: 186117745633336678}
+  - component: {fileID: 8917606735640548513}
+  - component: {fileID: 3966232961476787319}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -174,13 +174,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6490797884611656794
+--- !u!4 &186117745633336678
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5898391305884463187}
+  m_GameObject: {fileID: 8813657683559310696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -189,17 +189,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4580873011057310216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &5093457043908527327
+--- !u!108 &8917606735640548513
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5898391305884463187}
+  m_GameObject: {fileID: 8813657683559310696}
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
-  m_Color: {r: 0.9716981, g: 0.022917405, b: 0.022917405, a: 1}
+  m_Color: {r: 0.43710154, g: 0.9150943, b: 0.12517802, a: 1}
   m_Intensity: 5
   m_Range: 5
   m_SpotAngle: 30
@@ -254,13 +254,13 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &6646535046253441153
+--- !u!114 &3966232961476787319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5898391305884463187}
+  m_GameObject: {fileID: 8813657683559310696}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}

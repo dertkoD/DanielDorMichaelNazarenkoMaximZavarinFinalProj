@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d8147298d594941b4cdd8d96c56fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletPool
-  bulletPrefab: {fileID: 3120181276579393918, guid: 6a65f3b681802f04aa891e712be646b6, type: 3}
+  bulletPrefab: {fileID: 3120181276579393918, guid: 8205945ef3dc58040a4a85d11c5d1f00, type: 3}
   initialSize: 20
   poolContainer: {fileID: 2134269583029399542}
 --- !u!4 &2516042923461296795 stripped
