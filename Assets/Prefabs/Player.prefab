@@ -5322,6 +5322,75 @@ Transform:
   - {fileID: 1957038730437779934}
   m_Father: {fileID: 5313029063943165660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &977602590887701530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2596627898453065842}
+  - component: {fileID: 2598594820484356625}
+  - component: {fileID: 8645976070127108956}
+  m_Layer: 10
+  m_Name: HurtBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2596627898453065842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977602590887701530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4173992947988416182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2598594820484356625
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977602590887701530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.32160687, y: 1.4671754, z: 0.3677883}
+  m_Center: {x: 0.003987193, y: 0.73344105, z: -0.021866798}
+--- !u!114 &8645976070127108956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977602590887701530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7345f3a7bd8103439355f928171afd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthHitbox
+  targetCollider: {fileID: 2598594820484356625}
+  health: {fileID: 6418462820420412521}
+  damageMultiplier: 1
 --- !u!1 &1004712497986237627
 GameObject:
   m_ObjectHideFlags: 0
@@ -10527,6 +10596,7 @@ Transform:
   - {fileID: 729360714146159355}
   - {fileID: 1557796950340843345}
   - {fileID: 7704248685460922816}
+  - {fileID: 2596627898453065842}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4877387867682948575
@@ -10615,6 +10685,7 @@ MonoBehaviour:
   jumpAction: {fileID: 0}
   fireAction: {fileID: 0}
   lookAction: {fileID: 0}
+  reloadAction: {fileID: 0}
   playerMovement: {fileID: 7604744420711723004}
   playerJump: {fileID: 530732026569256937}
   playerWeaponController: {fileID: 3169216324536903959}
@@ -10754,6 +10825,7 @@ MonoBehaviour:
   verticalVelocityParam: VerticalVelocity
   hasWeaponParam: HasWeapon
   aimParam: Aim
+  reloadTriggerParam: Reload
   maxAnimSpeed: 6
   dampTime: 0.08
 --- !u!114 &6418462820420412521
@@ -10771,6 +10843,7 @@ MonoBehaviour:
   objectId: 0
   maxHp: 100
   currentHp: 100
+  raiseHealthOnEnable: 1
   animator: {fileID: 4877387867682948575}
   deathTrigger: Death
   hasWeaponParam: HasWeapon
@@ -10828,6 +10901,9 @@ MonoBehaviour:
   - {fileID: 8248381256014549084}
   - {fileID: 2355892945467325657}
   - {fileID: 2337153707802166232}
+  hipsBone: {fileID: 7704248685460922816}
+  chestBone: {fileID: 5886968291136142706}
+  invertFaceUpCheck: 1
   minRagdollTime: 1.25
   getUpFromBackTrigger: GetUpFromBack
   getUpFromFrontTrigger: GetUpFromFront

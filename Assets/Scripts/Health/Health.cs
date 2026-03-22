@@ -9,6 +9,9 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHp = 100;
     [SerializeField] private int currentHp = 100;
 
+    [Header("UI / Events")]
+    [SerializeField] private bool raiseHealthOnEnable = true;
+
     [Header("Animation")]
     [SerializeField] private Animator animator;
     [SerializeField] private string deathTrigger = "Death";
@@ -52,8 +55,12 @@ public class Health : MonoBehaviour
 
         deathTriggered = false;
         gameOverRaised = false;
+    }
 
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+    private void Start()
+    {
+        if (raiseHealthOnEnable)
+            RaiseHealthChanged();
     }
 
     private void OnDisable()
@@ -68,8 +75,7 @@ public class Health : MonoBehaviour
         if (info.damage <= 0) return;
 
         currentHp = Mathf.Max(0, currentHp - info.damage);
-
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+        RaiseHealthChanged();
 
         if (!IsDead) return;
 
@@ -81,6 +87,12 @@ public class Health : MonoBehaviour
             gameOverRaised = true;
             gameOverAction.Raise(winnerObjectIdOnDeath);
         }
+    }
+
+    private void RaiseHealthChanged()
+    {
+        Debug.Log($"Health Raise [{name}] objectId={objectId}, hp={currentHp}/{maxHp}, channel={healthChangedAction}");
+        healthChangedAction?.Raise(objectId, currentHp, maxHp);
     }
 
     private void TriggerDeathAnimation()
@@ -129,6 +141,6 @@ public class Health : MonoBehaviour
         currentHp = maxHp;
         deathTriggered = false;
         gameOverRaised = false;
-        healthChangedAction?.Raise(objectId, currentHp, maxHp);
+        RaiseHealthChanged();
     }
 }

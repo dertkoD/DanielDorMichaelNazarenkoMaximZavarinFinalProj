@@ -16,6 +16,12 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float bulletLifetime = 5f;
     [SerializeField] private int bulletDamage = 10;
 
+    [Header("Ammo")]
+    [SerializeField] private int magazineSize = 30;
+    [SerializeField] private float reloadDuration = 1.4f;
+    [SerializeField] private bool autoReloadOnEmpty = true;
+    [SerializeField] private bool canFireWhileReloading = false;
+
     [Header("Direction")]
     [SerializeField] private bool flattenDirectionToGround = true;
 
@@ -26,12 +32,30 @@ public class Weapon : MonoBehaviour
     private bool hasAimPoint;
     private int ownerObjectId = -1;
 
+    private int currentAmmoInMagazine;
+    private bool isReloading;
+    private float reloadFinishTime;
+
     public Transform Muzzle => muzzle;
     public bool Automatic => automatic;
     public float FireRate => fireRate;
 
+    public int MagazineSize => magazineSize;
+    public int CurrentAmmoInMagazine => currentAmmoInMagazine;
+    public bool IsReloading => isReloading;
+    public bool IsMagazineEmpty => currentAmmoInMagazine <= 0;
+    public bool CanShoot => !isReloading && currentAmmoInMagazine > 0;
+    public bool NeedsReload => currentAmmoInMagazine <= 0 && !isReloading;
+
+    private void Awake()
+    {
+        currentAmmoInMagazine = Mathf.Max(0, magazineSize);
+    }
+
     private void Update()
     {
+        TickReload();
+
         if (!automatic) return;
         if (!isFireHeld) return;
 
@@ -67,13 +91,71 @@ public class Weapon : MonoBehaviour
         TryFireInternal();
     }
 
+    public void Reload()
+    {
+        if (isReloading) return;
+        if (currentAmmoInMagazine >= magazineSize) return;
+        if (magazineSize <= 0) return;
+
+        isReloading = true;
+        reloadFinishTime = Time.time + reloadDuration;
+    }
+
+    private void TickReload()
+    {
+        if (!isReloading) return;
+        if (Time.time < reloadFinishTime) return;
+
+        isReloading = false;
+        currentAmmoInMagazine = magazineSize;
+    }
+
     private void TryFireInternal()
     {
-        if (muzzle == null) return;
-        if (bulletPool == null) return;
-        if (!hasAimPoint) return;
-        if (fireRate <= 0f) return;
-        if (Time.time < nextFireTime) return;
+        if (muzzle == null)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> muzzle is null");
+            return;
+        }
+
+        if (bulletPool == null)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> bulletPool is null");
+            return;
+        }
+
+        if (!hasAimPoint)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> hasAimPoint is false");
+            return;
+        }
+
+        if (fireRate <= 0f)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> fireRate <= 0");
+            return;
+        }
+
+        if (isReloading && !canFireWhileReloading)
+        {
+            Debug.Log($"{name}: Weapon fire blocked -> reloading");
+            return;
+        }
+
+        if (currentAmmoInMagazine <= 0)
+        {
+            Debug.Log($"{name}: Weapon fire blocked -> empty magazine");
+
+            if (autoReloadOnEmpty)
+                Reload();
+
+            return;
+        }
+
+        if (Time.time < nextFireTime)
+        {
+            return;
+        }
 
         nextFireTime = Time.time + (1f / fireRate);
 
@@ -93,7 +175,10 @@ public class Weapon : MonoBehaviour
         }
 
         if (direction.sqrMagnitude < 0.0001f)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> direction too small");
             return;
+        }
 
         direction.Normalize();
 
@@ -112,5 +197,9 @@ public class Weapon : MonoBehaviour
         
         shootPartical.Play();
         AudioManager.Instance.PlayShootSounds();        
+
+        currentAmmoInMagazine--;
+
+        Debug.Log($"{name}: FIRE! ammo left = {currentAmmoInMagazine}");
     }
 }
