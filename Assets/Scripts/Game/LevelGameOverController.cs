@@ -60,7 +60,7 @@ public class LevelGameOverController : MonoBehaviour
         {
             levelFinished = true;
             levelResultAction?.Raise(false);
-            _timer.ResumeTimer();
+            _timer.ResetTImer();
             _timer.StopTimerOnFinish();
             return;
         }
