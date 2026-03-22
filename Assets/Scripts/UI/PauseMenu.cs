@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused;
 
+    [SerializeField] private Timer _timer;
+
     private void Start()
     {
         ResumeGame();
@@ -48,6 +50,7 @@ public class PauseMenu : MonoBehaviour
         if (isPaused) return;
 
         isPaused = true;
+        _timer.StopTimer();
 
         if (pauseMenuRoot != null)
             pauseMenuRoot.SetActive(true);
@@ -62,6 +65,7 @@ public class PauseMenu : MonoBehaviour
         if (pauseMenuRoot != null)
             pauseMenuRoot.SetActive(false);
 
+        _timer.ResumeTimer();
         Time.timeScale = 1f;
     }
 

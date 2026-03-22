@@ -29,9 +29,6 @@ public class Health : MonoBehaviour
     [SerializeField] private HealthChangedActionChannelSO healthChangedAction;
     [SerializeField] private GameOverActionChannelSO gameOverAction;
 
-    [Header("Optional")]
-    [SerializeField] private int winnerObjectIdOnDeath = -1;
-
     public int ObjectId => objectId;
     public int MaxHp => maxHp;
     public int CurrentHp => currentHp;
@@ -82,16 +79,15 @@ public class Health : MonoBehaviour
         TriggerDeathAnimation();
         DisableDeadComponents();
 
-        if (!gameOverRaised && gameOverAction != null && winnerObjectIdOnDeath >= 0)
+        if (!gameOverRaised && gameOverAction != null)
         {
             gameOverRaised = true;
-            gameOverAction.Raise(winnerObjectIdOnDeath);
+            gameOverAction.Raise(objectId);
         }
     }
 
     private void RaiseHealthChanged()
     {
-        Debug.Log($"Health Raise [{name}] objectId={objectId}, hp={currentHp}/{maxHp}, channel={healthChangedAction}");
         healthChangedAction?.Raise(objectId, currentHp, maxHp);
     }
 

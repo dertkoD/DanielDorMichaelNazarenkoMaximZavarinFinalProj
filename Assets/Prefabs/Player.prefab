@@ -10703,16 +10703,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   rigidbodyComponent: {fileID: 4951137997473216400}
-  movementReference: {fileID: 0}
   groundChecker: {fileID: 8712302621391784445}
-  maxGroundSpeed: 30
-  maxAirSpeed: 25
-  groundAcceleration: 20
-  groundDeceleration: 10
-  groundTurnAcceleration: 20
-  airAcceleration: 4
-  airDeceleration: 2
-  airTurnAcceleration: 6
+  movementReference: {fileID: 0}
+  groundSpeed: 6
+  airSpeed: 4.5
+  acceleration: 30
+  groundSlideDecay: 2.5
+  airSlideDecay: 0.5
+  slideStartAngle: 35
+  slopeSlideAcceleration: 10
+  maxSlopeSlideSpeed: 7
+  dirtLayerName: Dirt
+  dirtSpeedMultiplier: 0.45
+  dirtAccelerationMultiplier: 0.65
+  dirtSlideDecayMultiplier: 1.4
+  groundedDownForce: 5
 --- !u!114 &530732026569256937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10730,6 +10735,7 @@ MonoBehaviour:
   jumpForce: 8
   jumpCooldown: 0.15
   jumpBufferTime: 0.12
+  noJumpLayerName: Dirt
   extraFallGravity: 12
   lowJumpGravity: 8
 --- !u!114 &8712302621391784445
@@ -10748,9 +10754,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  extraDistance: 0.08
+  castPadding: 0.08
   skin: 0.01
-  maxSlopeAngle: 60
+  maxGroundAngle: 60
   drawDebug: 0
 --- !u!114 &6969930942515374746
 MonoBehaviour:
@@ -10847,7 +10853,12 @@ MonoBehaviour:
   animator: {fileID: 4877387867682948575}
   deathTrigger: Death
   hasWeaponParam: HasWeapon
-  behavioursToDisable: []
+  behavioursToDisable:
+  - {fileID: 5837604450974126870}
+  - {fileID: 7604744420711723004}
+  - {fileID: 530732026569256937}
+  - {fileID: 3169216324536903959}
+  - {fileID: 663697566463828973}
   collidersToDisable: []
   rigidbodyToStop: {fileID: 4951137997473216400}
   damageEventChannel: {fileID: 11400000, guid: 2a1591b2a9e998e4990a66eddba63171, type: 2}

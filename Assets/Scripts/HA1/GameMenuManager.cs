@@ -13,32 +13,28 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI instructionsText;
-    [SerializeField] private TextMeshProUGUI victoryText; 
-    
+    [SerializeField] private TextMeshProUGUI victoryText;
+
     [Header("Events")]
-    [SerializeField] private GameOverActionChannelSO gameOverAction;
+    [SerializeField] private LevelResultActionChannelSO levelResultAction;
 
     [Header("Game Systems")]
     [SerializeField] private CursorAgentMovement raceManager;
     [SerializeField] private CameraRail cameraRail;
-    
-    [Header("Names")]
-    [SerializeField] private string agent1Name = "Swat";
-    [SerializeField] private string agent2Name = "Anime";
 
     private bool isGameStarted;
     private string sceneName;
 
     private void OnEnable()
     {
-        if (gameOverAction)
-            gameOverAction.OnEvent += OnGameOver;
+        if (levelResultAction != null)
+            levelResultAction.OnEvent += OnLevelResult;
     }
 
     private void OnDisable()
     {
-        if (gameOverAction)
-            gameOverAction.OnEvent -= OnGameOver;
+        if (levelResultAction != null)
+            levelResultAction.OnEvent -= OnLevelResult;
     }
 
     private void Start()
@@ -50,35 +46,46 @@ public class GameMenuManager : MonoBehaviour
     {
         isGameStarted = false;
 
-        startMenuPanel.SetActive(true);
-        endMenuPanel.SetActive(false);
-        
-        victoryText.text = ""; 
+        if (startMenuPanel != null) startMenuPanel.SetActive(true);
+        if (endMenuPanel != null) endMenuPanel.SetActive(false);
 
-        raceManager.SetGameActive(false);
-        cameraRail.SetGameActive(false);
+        if (victoryText != null)
+            victoryText.text = "";
 
-        startButton.onClick.RemoveAllListeners();
-        startButton.onClick.AddListener(StartGame);
-        
-        restartButton.onClick.RemoveAllListeners();
-        restartButton.onClick.AddListener(RestartGame);
+        if (raceManager != null)
+            raceManager.SetGameActive(false);
+
+        if (cameraRail != null)
+            cameraRail.SetGameActive(false);
+
+        if (startButton != null)
+        {
+            startButton.onClick.RemoveAllListeners();
+            startButton.onClick.AddListener(StartGame);
+        }
+
+        if (restartButton != null)
+        {
+            restartButton.onClick.RemoveAllListeners();
+            restartButton.onClick.AddListener(RestartGame);
+        }
 
         SetInstructionsText();
     }
 
-    public void OnGameOver(int winnerAgentId)
+    private void OnLevelResult(bool isVictory)
     {
-        string winner =
-            winnerAgentId == 1 ? agent1Name :
-            winnerAgentId == 2 ? agent2Name :
-            $"Agent {winnerAgentId}";
+        if (victoryText != null)
+            victoryText.text = isVictory ? "You Win!" : "You Lose!";
 
-        victoryText.text = winner + " Win!";
-        
-        endMenuPanel.SetActive(true);
-        raceManager.SetGameActive(false);
-        cameraRail.SetGameActive(false);
+        if (endMenuPanel != null)
+            endMenuPanel.SetActive(true);
+
+        if (raceManager != null)
+            raceManager.SetGameActive(false);
+
+        if (cameraRail != null)
+            cameraRail.SetGameActive(false);
     }
 
     public void StartGame()
@@ -86,11 +93,18 @@ public class GameMenuManager : MonoBehaviour
         if (isGameStarted) return;
 
         isGameStarted = true;
-        startMenuPanel.SetActive(false);
-        victoryText.text = ""; 
 
-        raceManager.SetGameActive(true);
-        cameraRail.SetGameActive(true);
+        if (startMenuPanel != null)
+            startMenuPanel.SetActive(false);
+
+        if (victoryText != null)
+            victoryText.text = "";
+
+        if (raceManager != null)
+            raceManager.SetGameActive(true);
+
+        if (cameraRail != null)
+            cameraRail.SetGameActive(true);
     }
 
     public void RestartGame()
@@ -101,18 +115,11 @@ public class GameMenuManager : MonoBehaviour
 
     private void SetInstructionsText()
     {
+        if (instructionsText == null) return;
+
         instructionsText.text =
-            "CONTROLS\n\n" +
-            "Agent Control:\n" +
-            "• Left Mouse Button - Set destination for swat agent\n" +
-            "• Right Mouse Button - Set destination for anime agent\n\n" +
-            "Camera Control:\n" +
-            "• W / ↑ - Move forward\n" +
-            "• S / ↓ - Move backward\n\n" +
             "OBJECTIVE:\n" +
-            "Guide both agents to pick up weapons\n" +
-            "Let them shoot each other!\n" +
-            "The agent left standing wins\n\n" +
+            "Defeat all enemies and survive.\n\n" +
             "Click START to begin";
     }
 }

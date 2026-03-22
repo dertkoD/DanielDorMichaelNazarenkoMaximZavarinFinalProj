@@ -221,6 +221,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1350034135309904283, guid: e190bf97c041e58448af6b043116cba0, type: 3}
   m_PrefabInstance: {fileID: 1974144282595949744}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &3271443988912718705 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3891973445508218817, guid: e190bf97c041e58448af6b043116cba0, type: 3}
+  m_PrefabInstance: {fileID: 1974144282595949744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2514294711424659331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,12 +317,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   muzzle: {fileID: 1189628192695348670}
   bulletPool: {fileID: 2444218532901961093}
-  shootPartical: {fileID: 0}
+  shootPartical: {fileID: 3271443988912718705}
   automatic: 0
   fireRate: 8
   bulletSpeed: 20
   bulletLifetime: 5
   bulletDamage: 10
+  magazineSize: 30
+  reloadDuration: 1.4
+  autoReloadOnEmpty: 1
+  canFireWhileReloading: 0
   flattenDirectionToGround: 1
 --- !u!114 &2444218532901961093
 MonoBehaviour:
