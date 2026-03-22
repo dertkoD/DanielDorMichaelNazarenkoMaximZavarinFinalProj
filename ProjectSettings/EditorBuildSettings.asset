@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DaniekBranch/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 9ab797b2f5c464944bd61f5ad5daef39
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 20c04064b51f84748ad2cf85d93717ee
   - enabled: 1
-    path: Assets/Scenes/ParkurScene.unity
+    path: Assets/Scenes/ObstacleCourseScene.unity
     guid: 37293a86ef3cce14ca4bd59df9ae07d2
   - enabled: 1
     path: Assets/Scenes/ShootScene.unity
