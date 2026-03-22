@@ -48,6 +48,14 @@ public class EnemyActor : MonoBehaviour
         if (aimController == null) return;
         aimController.AimAt(point);
     }
+    
+    private void Awake()
+    {
+        if (weaponController != null && health != null)
+        {
+            weaponController.SetObjectId(health.ObjectId);
+        }
+    }
 
     public void SetWeaponAimPoint(Vector3 point)
     {

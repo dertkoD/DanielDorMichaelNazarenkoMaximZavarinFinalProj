@@ -55,7 +55,6 @@ public partial class AdvancePatrolIndexAction : Action
                 next = 0;
 
             PatrolIndex.Value = next;
-            Debug.Log($"Advance Patrol Index: new index = {next}");
         }
 
         return Status.Success;

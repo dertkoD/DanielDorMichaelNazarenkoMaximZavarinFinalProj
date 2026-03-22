@@ -33,7 +33,6 @@ public partial class MoveToPatrolPointAction : Action
         }
 
         actor.MoveTo(PatrolPointPosition.Value);
-        Debug.Log($"Move To Patrol Point: moving to {PatrolPointPosition.Value}");
         return Status.Running;
     }
 

@@ -58,7 +58,6 @@ public partial class PatrolAction : Action
         PatrolIndex.Value = index;
         PatrolPointPosition.Value = point.position;
 
-        Debug.Log($"Get Patrol Point Position: success, index={index}, point={point.name}, pos={point.position}");
         return Status.Success;
     }
 

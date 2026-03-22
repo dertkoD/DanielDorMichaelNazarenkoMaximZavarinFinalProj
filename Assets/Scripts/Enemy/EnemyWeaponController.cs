@@ -16,6 +16,14 @@ public class EnemyWeaponController : MonoBehaviour
         if (weapon != null)
             weapon.SetOwnerObjectId(objectId);
     }
+    
+    public void SetObjectId(int value)
+    {
+        objectId = value;
+
+        if (weapon != null)
+            weapon.SetOwnerObjectId(objectId);
+    }
 
     public void SetAimPoint(Vector3 worldPoint)
     {
@@ -31,7 +39,6 @@ public class EnemyWeaponController : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{name}: EnemyWeaponController -> StartFire");
         weapon.StartFire();
     }
 

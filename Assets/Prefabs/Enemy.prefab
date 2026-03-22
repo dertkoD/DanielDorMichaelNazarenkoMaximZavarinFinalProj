@@ -32,6 +32,77 @@ Transform:
   - {fileID: 5560439292424147407}
   m_Father: {fileID: 3392658903165753883}
   m_LocalEulerAnglesHint: {x: -0.998, y: -168.27, z: -85.279}
+--- !u!1 &6972756732453861383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7377909876145803721}
+  - component: {fileID: 6374208124569115299}
+  - component: {fileID: 7777808609263840682}
+  m_Layer: 7
+  m_Name: HurtBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7377909876145803721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972756732453861383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3542697912156045880}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6374208124569115299
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972756732453861383}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2407968
+  m_Height: 1.8297
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.87504387, z: 0}
+--- !u!114 &7777808609263840682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972756732453861383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7345f3a7bd8103439355f928171afd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthHitbox
+  targetCollider: {fileID: 6374208124569115299}
+  health: {fileID: 5501668445505641155}
+  damageMultiplier: 1
 --- !u!1 &8378528413048939211
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +628,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2228c23278a83a54d8118f082a4b0589, type: 3}
       insertIndex: 0
       addedObject: {fileID: 5590038694645387338}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2228c23278a83a54d8118f082a4b0589, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7377909876145803721}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 2228c23278a83a54d8118f082a4b0589, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8222042736622563761}
@@ -734,9 +808,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5bd25c72b6d8ff488b7fbc485291abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  objectId: 0
+  objectId: 1
   maxHp: 100
   currentHp: 0
+  raiseHealthOnEnable: 1
   animator: {fileID: 7478821122308937794}
   deathTrigger: Death
   hasWeaponParam: HasWeapon
