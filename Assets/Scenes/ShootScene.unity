@@ -176,9 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'RESTART
-
-'
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e0078f29f833fd54f977d640cd87082c, type: 2}
   m_sharedMaterial: {fileID: 1039010276284790300, guid: e0078f29f833fd54f977d640cd87082c, type: 2}
@@ -1155,9 +1153,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1166268643}
-        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 209562754}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3635,6 +3633,7 @@ MonoBehaviour:
   - {fileID: 911721155}
   - {fileID: 144865904}
   - {fileID: 993259404}
+  _timer: {fileID: 0}
 --- !u!1 &1244258815
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,7 +5164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1932313598
 RectTransform:
   m_ObjectHideFlags: 0
