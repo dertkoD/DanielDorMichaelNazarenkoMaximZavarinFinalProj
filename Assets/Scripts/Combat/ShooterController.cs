@@ -99,8 +99,6 @@ public class ShooterController : MonoBehaviour
 
     private void FireOnce(int targetId)
     { 
-        //if (!projectilePrefab || !damageEventChannel || !agentRoot) return;
-
         if (_currentTarget == null || _currentTarget.AgentId != targetId)
             _currentTarget = ResolveTarget(targetId);
 

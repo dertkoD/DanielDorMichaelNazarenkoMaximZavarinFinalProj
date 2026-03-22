@@ -32,6 +32,8 @@ public class PooledBullet : MonoBehaviour
         damage = bulletDamage;
         sourceObjectId = ownerObjectId;
 
+        Debug.Log($"Bullet Launch: sourceObjectId={sourceObjectId}, damage={damage}");
+
         timer = 0f;
         isActive = true;
         gameObject.SetActive(true);
@@ -51,7 +53,8 @@ public class PooledBullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isActive) return;
-        if (other.isTrigger) return;
+
+        Debug.Log($"Bullet trigger hit: {other.name}, layer={LayerMask.LayerToName(other.gameObject.layer)}, isTrigger={other.isTrigger}");
 
         if (HealthHitboxRegistry.TryGet(other, out var hitbox))
         {
@@ -66,6 +69,8 @@ public class PooledBullet : MonoBehaviour
 
                 if (finalDamage > 0 && damageEventChannel != null)
                 {
+                    Debug.Log($"Bullet damage sent: source={sourceObjectId}, target={targetObjectId}, damage={finalDamage}");
+
                     damageEventChannel.Raise(new DamageInfo
                     {
                         sourceObjectId = sourceObjectId,
@@ -76,6 +81,9 @@ public class PooledBullet : MonoBehaviour
                     });
                 }
             }
+
+            ReturnToPool();
+            return;
         }
 
         ReturnToPool();
