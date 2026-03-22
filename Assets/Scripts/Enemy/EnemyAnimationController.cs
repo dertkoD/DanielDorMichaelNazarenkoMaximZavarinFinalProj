@@ -8,11 +8,13 @@ public class EnemyAnimationController : MonoBehaviour
     [SerializeField] private Transform visualRoot;
     [SerializeField] private NavMeshAgent navMeshAgent;
     [SerializeField] private Health health;
+    [SerializeField] private EnemyWeaponController enemyWeaponController;
 
     [Header("Animator Params")]
     [SerializeField] private string xVelocityParam = "xVelocity";
     [SerializeField] private string yVelocityParam = "yVelocity";
     [SerializeField] private string deathParam = "Death";
+    [SerializeField] private string ReloadParam = "Reload";
 
     [Header("Tuning")]
     [SerializeField] private float maxAnimSpeed = 4f;
@@ -27,6 +29,7 @@ public class EnemyAnimationController : MonoBehaviour
             return;
 
         UpdateMovementAnimation();
+        UpdateReloadAnimation();
         UpdateDeathAnimation();
     }
 
@@ -53,12 +56,18 @@ public class EnemyAnimationController : MonoBehaviour
         animator.SetFloat(yVelocityParam, y, dampTime, Time.deltaTime);
     }
 
+    private void UpdateReloadAnimation()
+    {
+        if (enemyWeaponController == null) return;
+        if (string.IsNullOrEmpty(ReloadParam)) return;
+
+        animator.SetBool(ReloadParam, enemyWeaponController.IsReloading);
+    }
+
     private Vector3 GetWorldVelocity()
     {
         if (navMeshAgent != null && navMeshAgent.enabled)
-        {
             return navMeshAgent.velocity;
-        }
 
         return Vector3.zero;
     }
@@ -70,6 +79,7 @@ public class EnemyAnimationController : MonoBehaviour
         if (deathSent) return;
 
         deathSent = true;
+
         if (!string.IsNullOrEmpty(deathParam))
             animator.SetTrigger(deathParam);
     }

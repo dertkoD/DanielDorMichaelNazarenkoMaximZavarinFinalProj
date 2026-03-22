@@ -984,18 +984,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
   animator: {fileID: 7478821122308937794}
-  visualRoot: {fileID: 0}
+  visualRoot: {fileID: 9041647192734573228}
   navMeshAgent: {fileID: 3088752880072943328}
   health: {fileID: 5501668445505641155}
+  enemyWeaponController: {fileID: 3839535442336109041}
   xVelocityParam: xVelocity
   yVelocityParam: yVelocity
   deathParam: Death
+  ReloadParam: Reload
   maxAnimSpeed: 4
   dampTime: 0.08
   minVelocityToAnimate: 0.03
 --- !u!95 &7478821122308937794 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 2228c23278a83a54d8118f082a4b0589, type: 3}
+  m_PrefabInstance: {fileID: 3936297284385973715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9041647192734573228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 2228c23278a83a54d8118f082a4b0589, type: 3}
   m_PrefabInstance: {fileID: 3936297284385973715}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8052543499877946196
