@@ -26,7 +26,6 @@ public class Timer : MonoBehaviour
     //for resume state
     public void ResumeTimer()
     {
-        timer = 0;
         isRunning = true;
     }
 
