@@ -31,6 +31,22 @@ public class LeaderBoardManager : MonoBehaviour
         
         uiLeader.ShowLeaderboard(scoreTable);
     }
+
+    //delete
+    public void TESTSAVE()
+    {
+        scoreTable = saveSystem.LoadLeaderBoardData();
+        
+        if (!string.IsNullOrEmpty(GameSession.CurrentPlayerName))
+        {
+            SavePlayerScoreInDictionary(
+                GameSession.CurrentPlayerName,
+                GameSession.CurrentPlayerTime
+            );
+        }
+        
+        uiLeader.ShowLeaderboard(scoreTable);
+    }
     
     //create "empty" player "account"
     public void SaveNewNameInDictionary()
