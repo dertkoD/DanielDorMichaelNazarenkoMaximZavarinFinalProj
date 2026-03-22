@@ -6,7 +6,6 @@ public class FinishTransition : MonoBehaviour
     [SerializeField] private ProgressBar progressBar;
     [SerializeField] private Timer _timer;
     
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
