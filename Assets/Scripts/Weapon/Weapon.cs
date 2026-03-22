@@ -43,6 +43,8 @@ public class Weapon : MonoBehaviour
     public int CurrentAmmoInMagazine => currentAmmoInMagazine;
     public bool IsReloading => isReloading;
     public bool IsMagazineEmpty => currentAmmoInMagazine <= 0;
+    public bool CanShoot => !isReloading && currentAmmoInMagazine > 0;
+    public bool NeedsReload => currentAmmoInMagazine <= 0 && !isReloading;
 
     private void Awake()
     {
@@ -109,16 +111,40 @@ public class Weapon : MonoBehaviour
 
     private void TryFireInternal()
     {
-        if (muzzle == null) return;
-        if (bulletPool == null) return;
-        if (!hasAimPoint) return;
-        if (fireRate <= 0f) return;
+        if (muzzle == null)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> muzzle is null");
+            return;
+        }
+
+        if (bulletPool == null)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> bulletPool is null");
+            return;
+        }
+
+        if (!hasAimPoint)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> hasAimPoint is false");
+            return;
+        }
+
+        if (fireRate <= 0f)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> fireRate <= 0");
+            return;
+        }
 
         if (isReloading && !canFireWhileReloading)
+        {
+            Debug.Log($"{name}: Weapon fire blocked -> reloading");
             return;
+        }
 
         if (currentAmmoInMagazine <= 0)
         {
+            Debug.Log($"{name}: Weapon fire blocked -> empty magazine");
+
             if (autoReloadOnEmpty)
                 Reload();
 
@@ -126,7 +152,9 @@ public class Weapon : MonoBehaviour
         }
 
         if (Time.time < nextFireTime)
+        {
             return;
+        }
 
         nextFireTime = Time.time + (1f / fireRate);
 
@@ -146,7 +174,10 @@ public class Weapon : MonoBehaviour
         }
 
         if (direction.sqrMagnitude < 0.0001f)
+        {
+            Debug.LogError($"{name}: Weapon fire blocked -> direction too small");
             return;
+        }
 
         direction.Normalize();
 
@@ -164,5 +195,7 @@ public class Weapon : MonoBehaviour
         );
 
         currentAmmoInMagazine--;
+
+        Debug.Log($"{name}: FIRE! ammo left = {currentAmmoInMagazine}");
     }
 }
