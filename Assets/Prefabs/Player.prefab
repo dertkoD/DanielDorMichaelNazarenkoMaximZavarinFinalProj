@@ -10705,19 +10705,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   rigidbodyComponent: {fileID: 4951137997473216400}
   groundChecker: {fileID: 8712302621391784445}
-  movementReference: {fileID: 0}
-  groundSpeed: 6
-  airSpeed: 4.5
-  acceleration: 30
+  movementReference: {fileID: 4173992947988416182}
+  groundSpeed: 3
+  airSpeed: 3
   groundSlideDecay: 2.5
   airSlideDecay: 0.5
-  slideStartAngle: 35
-  slopeSlideAcceleration: 10
-  maxSlopeSlideSpeed: 7
   dirtLayerName: Dirt
-  dirtSpeedMultiplier: 0.45
-  dirtAccelerationMultiplier: 0.65
-  dirtSlideDecayMultiplier: 1.4
+  dirtSpeedMultiplier: 0.5
+  dirtSlideDecayMultiplier: 0
   groundedDownForce: 5
 --- !u!114 &530732026569256937
 MonoBehaviour:
@@ -10733,12 +10728,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
   rigidbodyComponent: {fileID: 4951137997473216400}
   groundChecker: {fileID: 8712302621391784445}
-  jumpForce: 8
+  jumpForce: 6
   jumpCooldown: 0.15
   jumpBufferTime: 0.12
   noJumpLayerName: Dirt
-  extraFallGravity: 12
-  lowJumpGravity: 8
+  extraFallGravity: 10
+  lowJumpGravity: 5
 --- !u!114 &8712302621391784445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10754,11 +10749,11 @@ MonoBehaviour:
   playerCollider: {fileID: 8787901388825031452}
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   castPadding: 0.08
   skin: 0.01
-  maxGroundAngle: 60
   drawDebug: 0
+  groundedRememberTime: 0.08
 --- !u!114 &6969930942515374746
 MonoBehaviour:
   m_ObjectHideFlags: 0
