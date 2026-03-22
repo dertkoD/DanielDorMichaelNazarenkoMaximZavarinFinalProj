@@ -21,18 +21,6 @@ public class PlayerJump : MonoBehaviour
     private float lastJumpPressedTime = -999f;
     private float lastJumpTime = -999f;
 
-    private bool IsOnNoJumpSurface()
-    {
-        if (!groundChecker.IsGrounded)
-            return false;
-
-        Collider ground = groundChecker.GroundCollider;
-        if (!ground)
-            return false;
-        
-        return ground.gameObject.layer == LayerMask.NameToLayer(noJumpLayerName);
-    }
-    
     public void QueueJump()
     {
         jumpQueued = true;
@@ -60,7 +48,7 @@ public class PlayerJump : MonoBehaviour
 
         if (!groundChecker.IsGrounded || !hasBufferedJump || !cooldownReady)
             return;
-        
+
         if (IsOnNoJumpSurface())
             return;
 
@@ -72,6 +60,22 @@ public class PlayerJump : MonoBehaviour
 
         jumpQueued = false;
         lastJumpTime = Time.time;
+    }
+
+    private bool IsOnNoJumpSurface()
+    {
+        if (groundChecker == null || !groundChecker.IsGrounded)
+            return false;
+
+        Collider ground = groundChecker.GroundCollider;
+        if (ground == null)
+            return false;
+
+        int noJumpLayer = LayerMask.NameToLayer(noJumpLayerName);
+        if (noJumpLayer < 0)
+            return false;
+
+        return ground.gameObject.layer == noJumpLayer;
     }
 
     private void ApplyExtraGravity()
