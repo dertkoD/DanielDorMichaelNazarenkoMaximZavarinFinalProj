@@ -18,6 +18,8 @@ public class LevelGameOverController : MonoBehaviour
     private readonly HashSet<int> aliveEnemyIds = new HashSet<int>();
     private bool levelFinished;
 
+    [SerializeField] private Timer _timer;
+
     private void OnEnable()
     {
         if (gameOverAction != null)
@@ -58,9 +60,11 @@ public class LevelGameOverController : MonoBehaviour
         {
             levelFinished = true;
             levelResultAction?.Raise(false);
+            _timer.ResumeTimer();
+            _timer.StopTimerOnFinish();
             return;
         }
-
+            
         if (aliveEnemyIds.Contains(deadObjectId))
             aliveEnemyIds.Remove(deadObjectId);
 

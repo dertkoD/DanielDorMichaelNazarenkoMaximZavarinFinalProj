@@ -35,5 +35,10 @@ public class Timer : MonoBehaviour
         StopTimer();
         GameSession.CurrentPlayerTime = timer;
     }
+
+    public void ResetTImer()
+    {
+        timer = 0;
+    }
     
 }
