@@ -821,7 +821,6 @@ MonoBehaviour:
   damageEventChannel: {fileID: 11400000, guid: 2a1591b2a9e998e4990a66eddba63171, type: 2}
   healthChangedAction: {fileID: 11400000, guid: 64b6190a0a04d4640b4ac6fb2bbd8881, type: 2}
   gameOverAction: {fileID: 11400000, guid: 7e1b2dab97af1c046bb8ae63d2113abf, type: 2}
-  winnerObjectIdOnDeath: -1
 --- !u!114 &1142106055947147471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +1012,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8222042736622563761}
     m_Modifications:
+    - target: {fileID: 2444218532901961093, guid: 856102df85c23704290bb5f3d018f470, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3120181276579393918, guid: 6a65f3b681802f04aa891e712be646b6, type: 3}
     - target: {fileID: 2515095295300594571, guid: 856102df85c23704290bb5f3d018f470, type: 3}
       propertyPath: m_Name
       value: WeaponPrefabRework
