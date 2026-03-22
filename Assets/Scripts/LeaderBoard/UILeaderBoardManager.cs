@@ -16,6 +16,12 @@ public class UILeaderBoardManager : MonoBehaviour
     {
         currentPlayerStats.text = $"Player {name}, your current score: {score}";
     }
+    
+    
+    public void ResetCurrentPLayer()
+    {
+        currentPlayerStats.text = "";
+    }
     public void AddNewMemberToLeaderBoard(Dictionary<string, float> scoreTable)
     {
         if (currentRows >= numberOfRows)
