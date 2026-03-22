@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2217471182840886141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6333623998239292931}
+  - component: {fileID: 381668445815967778}
+  - component: {fileID: 2135779130883500892}
+  m_Layer: 0
+  m_Name: DisableDoors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6333623998239292931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2217471182840886141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.1303186, y: 0.51, z: -2.854958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8222427799897737318}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &381668445815967778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2217471182840886141}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.42250836, y: 4.0048256, z: 7.9847336}
+  m_Center: {x: -0.28874582, y: 1.5024128, z: 0.013770103}
+--- !u!114 &2135779130883500892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2217471182840886141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831cae823ff57464581bc672a7144f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WallsDisabler
+  doors: {fileID: 7344561579149809850}
 --- !u!1 &3466210668471189996
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +315,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 20145
+  m_VersionIndex: 20151
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -387,6 +454,7 @@ Transform:
   m_Children:
   - {fileID: 8752301120817642639}
   - {fileID: 3701651821512726060}
+  - {fileID: 6333623998239292931}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7344561579149809850
@@ -501,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233129421964934825, guid: cd97ff28d382e3541a328eee832e7e26, type: 3}
       propertyPath: m_VersionIndex
-      value: 1864
+      value: 1870
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -523,7 +591,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1342906933091058351, guid: 9565ef63e3b3a2e4aa3331bcd7a863d6, type: 3}
       propertyPath: m_VersionIndex
-      value: 1948
+      value: 1954
       objectReference: {fileID: 0}
     - target: {fileID: 2107018904218132996, guid: 9565ef63e3b3a2e4aa3331bcd7a863d6, type: 3}
       propertyPath: m_Name
@@ -633,7 +701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6509024358992431690, guid: a1db82c249bf1cb44a9dd2b74263cba5, type: 3}
       propertyPath: m_VersionIndex
-      value: 2074
+      value: 2080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -655,7 +723,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3769399289121396775, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
       propertyPath: m_VersionIndex
-      value: 2080
+      value: 2086
       objectReference: {fileID: 0}
     - target: {fileID: 4310169782055467148, guid: e2a9b32ea085af447bda1fcafd6b8e39, type: 3}
       propertyPath: m_Name
